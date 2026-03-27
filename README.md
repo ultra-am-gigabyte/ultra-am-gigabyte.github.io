@@ -12,5 +12,5 @@ this is form 2016 year and don't sue me.
 supported bowsers: internet explorer 9
 brawe, firefox, chrome, supermium.
 -------------------------------------------------
-the site has many versions its connected to waybach machine but yeah it works the date bar is removed!
+the site has many versions its connected to wayback machine but yeah it works the date bar is removed!
 -------------------------------------------------
