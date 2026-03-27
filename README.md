@@ -9,3 +9,6 @@ link: https://ultra-am-gigabyte.github.io
 -------------------------------------------------
 this is form 2016 year and don't sue me.
 -------------------------------------------------
+supported bowsers: internet explorer 9
+brawe, firefox, chrome, supermium.
+-------------------------------------------------
