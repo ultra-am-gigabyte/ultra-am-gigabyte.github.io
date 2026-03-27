@@ -5,7 +5,7 @@ jump in the site!
 -------------------------------------------------
 link: https://ultra-am-gigabyte.github.io
 -------------------------------------------------
-!WARNING! Every phonenumber you see is not in use!
+!WARNING! Every phone number you see is not in use!
 -------------------------------------------------
 this is form 2016 year and don't sue me.
 -------------------------------------------------
