@@ -46,7 +46,6 @@
             opacity: 0.9;
         }
 
-        /* Modern Navigation Dashboard style bar */
         .nav-container {
             max-width: 1200px;
             margin: 2rem auto 0 auto;
@@ -140,9 +139,13 @@
             background-color: var(--primary-color);
         }
 
+        /* Border accent definitions for chronological releases */
         .win11-card::before { background: linear-gradient(90deg, #0078d4, #50e3c2); }
         .win10-card::before { background: #0078d4; }
+        .win8-card::before { background: #00adee; }
         .win7-card::before { background: linear-gradient(90deg, #3a7bd5, #3a6073); }
+        .vista-card::before { background: linear-gradient(90deg, #4bf12c, #00d2ff); }
+        .xp-card::before { background: linear-gradient(90deg, #d47a00, #ffba42); }
 
         .card:hover {
             transform: translateY(-5px);
@@ -161,6 +164,7 @@
             line-height: 1.6;
             font-size: 0.95rem;
             margin-bottom: 1.5rem;
+            min-height: 72px; /* Smooth card heights across different description text lengths */
         }
 
         .details {
@@ -253,7 +257,6 @@
         <p>Clean Operating System ISO repository powered by Internet Archive streams</p>
     </header>
 
-    <!-- NEW NAVIGATION AND ROUTING BAR -->
     <div class="nav-container">
         <div class="nav-tabs">
             <a href="index.html" class="nav-tab active">Standard ISOs</a>
@@ -299,6 +302,23 @@
                 </div>
             </div>
 
+            <!-- Windows 8.1 / 8 Card -->
+            <div class="card win8-card">
+                <div>
+                    <h2>Windows 8.1</h2>
+                    <p>The refined tile-interface ecosystem. Merges modern flat UI components with traditional desktop performance, optimized for lightweight devices.</p>
+                    <div class="details">
+                        <div><span class="label">Architecture:</span> <span class="value">x64 / x86 Multi</span></div>
+                        <div><span class="label">Format:</span> <span class="value">Standard .ISO</span></div>
+                        <div><span class="label">Source:</span> <span class="value">Internet Archive</span></div>
+                    </div>
+                </div>
+                <div class="btn-group">
+                    <a href="https://archive.org/details/windows-8.1-iso-collection" target="_blank" class="btn" style="background-color: #00adee;">Open Source Site</a>
+                    <a href="https://archive.org/download/windows-8.1-iso-collection" class="btn btn-secondary">Browse ISO Directory</a>
+                </div>
+            </div>
+
             <!-- Windows 7 Card -->
             <div class="card win7-card">
                 <div>
@@ -313,6 +333,40 @@
                 <div class="btn-group">
                     <a href="https://archive.org/details/windows-7-iso-" target="_blank" class="btn" style="background-color: #2b6cb0;">Open Source Site</a>
                     <a href="https://archive.org/download/windows-7-iso-/windows-7-iso-_archive.torrent" class="btn btn-secondary">Download Torrent Link</a>
+                </div>
+            </div>
+
+            <!-- Windows Vista Card -->
+            <div class="card vista-card">
+                <div>
+                    <h2>Windows Vista (SP2)</h2>
+                    <p>The dawn of the Aero Glass theme engine. Essential target build for mid-2000s desktop restoration, legacy driver staging, and visual preservation testing.</p>
+                    <div class="details">
+                        <div><span class="label">Architecture:</span> <span class="value">x64 / x86 Multi</span></div>
+                        <div><span class="label">Format:</span> <span class="value">All-in-One Collection</span></div>
+                        <div><span class="label">Source:</span> <span class="value">Internet Archive</span></div>
+                    </div>
+                </div>
+                <div class="btn-group">
+                    <a href="https://archive.org/details/win-vista-iso-collection" target="_blank" class="btn" style="background-color: #10b981;">Open Source Site</a>
+                    <a href="https://archive.org/download/win-vista-iso-collection" class="btn btn-secondary">Browse ISO Directory</a>
+                </div>
+            </div>
+
+            <!-- Windows XP Card -->
+            <div class="card xp-card">
+                <div>
+                    <h2>Windows XP (SP3)</h2>
+                    <p>The iconic computing baseline. Ultra-light configuration primarily deployed to drive air-gapped laboratory hardware setups, emulation matrices, and retro system configurations.</p>
+                    <div class="details">
+                        <div><span class="label">Architecture:</span> <span class="value">x86 (32-bit Classic)</span></div>
+                        <div><span class="label">Format:</span> <span class="value">Retail / OEM .ISO</span></div>
+                        <div><span class="label">Source:</span> <span class="value">Internet Archive</span></div>
+                    </div>
+                </div>
+                <div class="btn-group">
+                    <a href="https://archive.org/details/WinXPProSP3x86" target="_blank" class="btn" style="background-color: #d97706;">Open Source Site</a>
+                    <a href="https://archive.org/download/WinXPProSP3x86/WinXPProSP3x86.iso" class="btn btn-secondary">Direct ISO Download</a>
                 </div>
             </div>
 
