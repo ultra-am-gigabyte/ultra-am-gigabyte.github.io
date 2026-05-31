@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Windows ISO Mirror Archive</title>
+    <title>Tiny Windows Resource Center</title>
     <style>
         :root {
             --bg-color: #f3f4f6;
             --card-bg: #ffffff;
             --text-color: #1f2937;
-            --primary-color: #0078d4; /* Windows Modern Blue */
-            --primary-hover: #005a9e;
+            --primary-color: #0d9488; /* Performance Teal */
+            --primary-hover: #0f766e;
             --border-radius: 12px;
         }
 
@@ -26,7 +26,7 @@
         }
 
         header {
-            background: linear-gradient(135deg, #005a9e 0%, #0078d4 100%);
+            background: linear-gradient(135deg, #0f766e 0%, #0d9488 100%);
             color: white;
             text-align: center;
             padding: 3rem 1rem;
@@ -46,62 +46,25 @@
             opacity: 0.9;
         }
 
-        /* Modern Navigation Dashboard style bar */
-        .nav-container {
+        .nav-bar {
             max-width: 1200px;
-            margin: 2rem auto 0 auto;
+            margin: 1.5rem auto 0 auto;
             padding: 0 1.5rem;
             width: calc(100% - 3rem);
-            display: flex;
-            justify-content: space-between;
+        }
+
+        .nav-link {
+            display: inline-flex;
             align-items: center;
-            flex-wrap: wrap;
-            gap: 1rem;
-        }
-
-        .nav-tabs {
-            display: flex;
-            gap: 0.5rem;
-            background: #e5e7eb;
-            padding: 0.35rem;
-            border-radius: 8px;
-        }
-
-        .nav-tab {
-            padding: 0.5rem 1.25rem;
-            text-decoration: none;
             color: #4b5563;
-            font-weight: 600;
-            font-size: 0.9rem;
-            border-radius: 6px;
-            transition: all 0.2s;
-        }
-
-        .nav-tab.active {
-            background-color: var(--card-bg);
-            color: var(--primary-color);
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-        }
-
-        .nav-tab:hover:not(.active) {
-            color: #111827;
-            background-color: rgba(255,255,255,0.5);
-        }
-
-        .old-site-link {
-            color: #6b7280;
             text-decoration: none;
-            font-weight: 500;
-            font-size: 0.9rem;
-            display: flex;
-            align-items: center;
-            gap: 0.25rem;
+            font-weight: 600;
+            font-size: 0.95rem;
             transition: color 0.2s;
         }
 
-        .old-site-link:hover {
-            color: #111827;
-            text-decoration: underline;
+        .nav-link:hover {
+            color: var(--primary-color);
         }
 
         main {
@@ -109,6 +72,17 @@
             margin: 1.5rem auto 3rem auto;
             padding: 0 1.5rem;
             flex: 1;
+        }
+
+        .notice-box {
+            background-color: #f0fdfa;
+            border-left: 4px solid var(--primary-color);
+            padding: 1rem 1.5rem;
+            border-radius: 6px;
+            margin-bottom: 2.5rem;
+            color: #134e4a;
+            font-size: 0.95rem;
+            line-height: 1.5;
         }
 
         .grid {
@@ -140,9 +114,9 @@
             background-color: var(--primary-color);
         }
 
-        .win11-card::before { background: linear-gradient(90deg, #0078d4, #50e3c2); }
-        .win10-card::before { background: #0078d4; }
-        .win7-card::before { background: linear-gradient(90deg, #3a7bd5, #3a6073); }
+        .tiny11::before { background: linear-gradient(90deg, #0d9488, #2dd4bf); }
+        .tiny10::before { background: linear-gradient(90deg, #0f766e, #0d9488); }
+        .tiny7::before { background: linear-gradient(90deg, #115e59, #14b8a6); }
 
         .card:hover {
             transform: translateY(-5px);
@@ -249,70 +223,70 @@
 <body>
 
     <header>
-        <h1>Windows OS Image Mirror</h1>
-        <p>Clean Operating System ISO repository powered by Internet Archive streams</p>
+        <h1>Tiny Windows Download Center</h1>
+        <p>Lightweight, debloated builds optimized for older hardware and virtual machines</p>
     </header>
 
-    <!-- NEW NAVIGATION AND ROUTING BAR -->
-    <div class="nav-container">
-        <div class="nav-tabs">
-            <a href="index.html" class="nav-tab active">Standard ISOs</a>
-            <a href="tiny.html" class="nav-tab">Tiny Windows</a>
-        </div>
-        <a href="original.html" class="old-site-link">🗂️ View Original Layout Site</a>
+    <div class="nav-bar">
+        <a href="index.html" class="nav-link">← Back to Standard Windows ISOs</a>
     </div>
 
     <main>
+        <div class="notice-box">
+            <strong>What is Tiny Windows?</strong> These are third-party modified, ultra-stripped configurations of Windows. System extras like Microsoft Edge, Cortana, Xbox services, and built-in diagnostic tracking (telemetry) are removed to run efficiently on devices with as little as 2GB of RAM.
+        </div>
+
         <div class="grid">
             
-            <!-- Windows 11 Card -->
-            <div class="card win11-card">
+            <!-- Tiny 11 Card -->
+            <div class="card tiny11">
                 <div>
-                    <h2>Windows 11 Pro</h2>
-                    <p>Experience the modern layout of Windows 11. Designed for enhanced security, snap layouts, integrated virtual desktops, and an updated ecosystem.</p>
+                    <h2>Tiny 11</h2>
+                    <p>A stripped-down modification of Windows 11. It removes the harsh hardware/TPM requirements, uses less than 10GB of storage space, and runs smoothly on older systems.</p>
                     <div class="details">
+                        <div><span class="label">Based On:</span> <span class="value">Windows 11 Pro 22H2</span></div>
                         <div><span class="label">Architecture:</span> <span class="value">x64 (64-bit)</span></div>
-                        <div><span class="label">Format:</span> <span class="value">Standard .ISO</span></div>
-                        <div><span class="label">Source:</span> <span class="value">Internet Archive</span></div>
+                        <div><span class="label">ISO Size:</span> <span class="value">~3.6 GB</span></div>
                     </div>
                 </div>
                 <div class="btn-group">
-                    <a href="https://archive.org/download/windows-11-pro-x-64-bit-iso/Windows%2011%20Pro%20x64-bit%20ISO.iso" class="btn">Direct Download ISO</a>
-                    <a href="https://archive.org/details/windows-11-pro-x-64-bit-iso" target="_blank" class="btn btn-secondary">View Source Page</a>
+                    <!-- Pointing directly to Internet Archive's community catalog for Tiny11 -->
+                    <a href="https://archive.org/details/tiny-11-NTDEV" target="_blank" class="btn">Open Source Site</a>
+                    <a href="https://archive.org/download/tiny-11-NTDEV/tiny11%20b2%20no%20sys%20req.iso" class="btn btn-secondary">Direct ISO Download</a>
                 </div>
             </div>
 
-            <!-- Windows 10 Card -->
-            <div class="card win10-card">
+            <!-- Tiny 10 Card -->
+            <div class="card tiny10">
                 <div>
-                    <h2>Windows 10 (21H1)</h2>
-                    <p>Clean English edition of Windows 10. Known for its versatile performance stability, legacy system compatibility, and optimal hardware support.</p>
+                    <h2>Tiny 10</h2>
+                    <p>The ultimate performance build for low-spec laptops. Thoroughly debloated Windows 10 that brings life back to core hardware config targets while retaining fundamental system functionality.</p>
                     <div class="details">
-                        <div><span class="label">Architecture:</span> <span class="value">x64 (64-bit)</span></div>
-                        <div><span class="label">Format:</span> <span class="value">Standard .ISO</span></div>
-                        <div><span class="label">Source:</span> <span class="value">Internet Archive</span></div>
+                        <div><span class="label">Based On:</span> <span class="value">Windows 10 LTSC</span></div>
+                        <div><span class="label">Architecture:</span> <span class="value">x64 / x86 options</span></div>
+                        <div><span class="label">ISO Size:</span> <span class="value">~2.7 GB</span></div>
                     </div>
                 </div>
                 <div class="btn-group">
-                    <a href="https://archive.org/download/win-10-21-h-1-english-x-64_20210711/Win10_21H1_English_x64.iso" class="btn">Direct Download ISO</a>
-                    <a href="https://archive.org/details/win-10-21-h-1-english-x-64_20210711" target="_blank" class="btn btn-secondary">View Source Page</a>
+                    <a href="https://archive.org/details/tiny-10-NTDEV" target="_blank" class="btn">Open Source Site</a>
+                    <a href="https://archive.org/download/tiny-10-NTDEV/tiny10%20x64%2023H2.iso" class="btn btn-secondary">Direct ISO (23H2 x64)</a>
                 </div>
             </div>
 
-            <!-- Windows 7 Card -->
-            <div class="card win7-card">
+            <!-- Tiny 7 / ThinPC Card -->
+            <div class="card tiny7">
                 <div>
-                    <h2>Windows 7</h2>
-                    <p>Legacy operating system preservation. Intended primarily for retro gaming setups, system testing environments, or low-overhead virtual machines.</p>
+                    <h2>Windows Thin PC (Tiny 7)</h2>
+                    <p>Microsoft's official lightweight legacy build based on Windows 7. Extremely low footprint meant for low-power endpoints, legacy gaming rigs, or micro-VM installations.</p>
                     <div class="details">
-                        <div><span class="label">Architecture:</span> <span class="value">x64 / x86 Multi</span></div>
-                        <div><span class="label">Format:</span> <span class="value">Repository Archive</span></div>
-                        <div><span class="label">Source:</span> <span class="value">Internet Archive</span></div>
+                        <div><span class="label">Based On:</span> <span class="value">Windows 7 Embedded</span></div>
+                        <div><span class="label">Architecture:</span> <span class="value">x86 (32-bit optimized)</span></div>
+                        <div><span class="label">ISO Size:</span> <span class="value">~1.5 GB</span></div>
                     </div>
                 </div>
                 <div class="btn-group">
-                    <a href="https://archive.org/details/windows-7-iso-" target="_blank" class="btn" style="background-color: #2b6cb0;">Open Source Site</a>
-                    <a href="https://archive.org/download/windows-7-iso-/windows-7-iso-_archive.torrent" class="btn btn-secondary">Download Torrent Link</a>
+                    <a href="https://archive.org/details/unattended-windows-7" target="_blank" class="btn">Open Source Site</a>
+                    <a href="https://archive.org/download/unattended-windows-7/Windows%20Thin%20PC.iso" class="btn btn-secondary">Direct ISO Download</a>
                 </div>
             </div>
 
@@ -320,7 +294,7 @@
     </main>
 
     <footer>
-        <p>Deployment built for <a href="https://pages.github.com/" target="_blank">GitHub Pages</a> | Mirrors curated via Internet Archive</p>
+        <p>Deployment built for <a href="https://pages.github.com/" target="_blank">GitHub Pages</a> | Community builds indexed safely</p>
     </footer>
 
 </body>
