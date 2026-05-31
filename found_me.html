@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>info - The Creator</title>
+    <style>
+        :root {
+            --bg-color: #0f172a; /* Sleek Dark Slate */
+            --card-bg: #1e293b;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent-color: #38bdf8; /* Cyan Highlight */
+            --accent-hover: #0ea5e9;
+            --border-radius: 16px;
+        }
+
+        body {
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 500px;
+            padding: 1.5rem;
+            box-sizing: border-box;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+            transition: color 0.2s;
+        }
+
+        .back-link:hover {
+            color: var(--accent-color);
+        }
+
+        .profile-card {
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            padding: 2.5rem 2rem;
+            text-align: center;
+            border: 1px solid #334155;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .profile-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: linear-gradient(90deg, #38bdf8, #818cf8);
+        }
+
+        /* Avatar Placeholder */
+        .avatar {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #38bdf8 0%, #818cf8 100%);
+            margin: 0 auto 1.5rem auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: white;
+            box-shadow: 0 4px 14px rgba(56, 189, 248, 0.4);
+        }
+
+        h1 {
+            margin: 0 0 0.5rem 0;
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .tagline {
+            color: var(--accent-color);
+            font-weight: 600;
+            font-size: 1rem;
+            margin: 0 0 1.5rem 0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .bio {
+            color: var(--text-muted);
+            line-height: 1.6;
+            font-size: 0.95rem;
+            margin: 0 0 2rem 0;
+        }
+
+        .details-list {
+            background-color: #111827;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 2rem;
+            text-align: left;
+            border: 1px solid #1e293b;
+        }
+
+        .detail-item {
+            display: flex;
+            justify-content: space-between;
+            margin: 0.5rem 0;
+            font-size: 0.9rem;
+        }
+
+        .detail-label {
+            color: var(--text-muted);
+        }
+
+        .detail-value {
+            color: var(--text-main);
+            font-weight: 600;
+        }
+
+        .btn {
+            display: block;
+            background-color: var(--accent-color);
+            color: #0f172a;
+            text-decoration: none;
+            padding: 0.85rem;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 1rem;
+            transition: background-color 0.2s, transform 0.1s;
+        }
+
+        .btn:hover {
+            background-color: var(--accent-hover);
+        }
+
+        .btn:active {
+            transform: scale(0.98);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Return back button -->
+        <a href="index.html" class="back-link">← Return to Dashboard</a>
+
+        <div class="profile-card">
+            <!-- Put your initials here inside the div -->
+            <div class="avatar">👑</div>
+            
+            <!-- Customise your details below! -->
+            <h1>Your Name / Alias</h1>
+            <p class="tagline">Archive Curator & Developer</p>
+            
+            <p class="bio">
+                Welcome! I created this repository mirror to provide clean, fast, and un-throttled links to operating system images, skipping the heavy clutter of standard download pages.
+            </p>
+
+            <div class="details-list">
+                <div class="detail-item">
+                    <span class="detail-label">Role:</span>
+                    <span class="detail-value">Project Lead</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">Favorite OS:</span>
+                    <span class="detail-value">Windows 10 LTSC / 7</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">Project Status:</span>
+                    <span class="detail-value" style="color: #4ade80;">Active</span>
+                </div>
+            </div>
+
+            <!-- Link to your real GitHub profile -->
+            <a href="https://github.com/ultra-ra.gigabyte" target="_blank" class="btn">Follow My GitHub</a>
+        </div>
+    </div>
+
+</body>
+</html>
