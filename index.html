@@ -9,7 +9,7 @@
             --bg-color: #f3f4f6;
             --card-bg: #ffffff;
             --text-color: #1f2937;
-            --primary-color: #0078d4; /* Windows Modern Blue */
+            --primary-color: #0078d4;
             --primary-hover: #005a9e;
             --border-radius: 12px;
         }
@@ -139,7 +139,6 @@
             background-color: var(--primary-color);
         }
 
-        /* Border accent definitions for chronological releases */
         .win11-card::before { background: linear-gradient(90deg, #0078d4, #50e3c2); }
         .win10-card::before { background: #0078d4; }
         .win8-card::before { background: #00adee; }
@@ -164,7 +163,7 @@
             line-height: 1.6;
             font-size: 0.95rem;
             margin-bottom: 1.5rem;
-            min-height: 72px; /* Smooth card heights across different description text lengths */
+            min-height: 72px;
         }
 
         .details {
@@ -257,10 +256,12 @@
         <p>Clean Operating System ISO repository powered by Internet Archive streams</p>
     </header>
 
+    <!-- FIXED NAVIGATION DASHBOARD MENU -->
     <div class="nav-container">
         <div class="nav-tabs">
             <a href="index.html" class="nav-tab active">Standard ISOs</a>
             <a href="tiny.html" class="nav-tab">Tiny Windows</a>
+            <a href="found_me.html" class="nav-tab">Found Me</a>
         </div>
         <a href="original.html" class="old-site-link">🗂️ View Original Layout Site</a>
     </div>
@@ -280,7 +281,7 @@
                     </div>
                 </div>
                 <div class="btn-group">
-                    <a href="https://archive.org/download/windows-11-pro-x-64-bit-iso/Windows%2011%20Pro%20x64-bit%20ISO.iso" class="btn">Direct Download ISO</a>
+                    <a href="https://archive.org/download/windows-11-pro-x-64-bit-iso/windows%2011%20pro%20x64%20bit%20iso.iso" class="btn">Direct Download ISO</a>
                     <a href="https://archive.org/details/windows-11-pro-x-64-bit-iso" target="_blank" class="btn btn-secondary">View Source Page</a>
                 </div>
             </div>
