@@ -8,5 +8,7 @@ we are safer than pirated version
 --------------------------------------------------
 direct download removed because error's.
 ---------------------------------------------------
-we recoment download rufus! link: https://github.com/pbatard/rufus/releases/download/v4.14/rufus-4.14.exe
+download rufus! link: https://github.com/pbatard/rufus/releases/download/v4.14/rufus-4.14.exe
 ---------------------------------------------------
+we don't own rufus! we support because it saved me alot times.
+its great its easy to use and support legacy boot!
