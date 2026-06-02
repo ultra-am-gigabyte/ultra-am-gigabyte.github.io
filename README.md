@@ -8,3 +8,5 @@ we are safer than pirated version
 --------------------------------------------------
 direct download removed because error's.
 ---------------------------------------------------
+we recoment rufus! link: https://github.com/pbatard/rufus/releases/download/v4.14/rufus-4.14.exe
+---------------------------------------------------
