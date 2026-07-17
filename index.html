@@ -1,1 +1,934 @@
-this site is down due error's and more stuff!
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Primary Meta Tags -->
+    <title>Windows ISO Mirror | Professional OS Repository</title>
+    <meta name="title" content="Windows ISO Mirror | Professional OS Repository">
+    <meta name="description" content="Clean Windows ISO downloads powered by the Internet Archive. Featuring Windows 11, 10, 8.1, 7, XP, and specialized Tiny Windows builds.">
+    <meta name="keywords" content="Windows ISO, Windows 11 Download, Tiny11, Tiny10, Windows 7 ISO, Windows XP ISO, Rufus, MAS, Windows Mirror">
+    <meta name="author" content="KAT">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://wmi-mirror.github.io/">
+    <meta property="og:title" content="Windows ISO Mirror | Professional OS Repository">
+    <meta property="og:description" content="Clean Windows ISO downloads powered by the Internet Archive. Premium Fluent Design interface.">
+    <meta property="og:image" content="https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Windows_logo_-_2021.svg/1200px-Windows_logo_-_2021.svg.png">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:title" content="Windows ISO Mirror">
+    <meta property="twitter:description" content="Clean Windows ISO downloads powered by the Internet Archive.">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- CSS VARIABLES (FLUENT DESIGN) --- */
+        :root {
+            --primary: #0078d4;
+            --primary-hover: #005a9e;
+            --accent-glow: rgba(0, 120, 212, 0.4);
+            --discord: #5865F2;
+            
+            /* Dark Theme (Default) */
+            --bg: #0a0a0a;
+            --surface: rgba(25, 25, 25, 0.7);
+            --surface-border: rgba(255, 255, 255, 0.1);
+            --text-main: #ffffff;
+            --text-muted: #a1a1aa;
+            --nav-bg: rgba(10, 10, 10, 0.8);
+            --card-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.8);
+            --input-bg: rgba(255, 255, 255, 0.05);
+            --selection: rgba(0, 120, 212, 0.3);
+        }
+
+        [data-theme="light"] {
+            --bg: #f3f4f6;
+            --surface: rgba(255, 255, 255, 0.7);
+            --surface-border: rgba(0, 0, 0, 0.1);
+            --text-main: #18181b;
+            --text-muted: #52525b;
+            --nav-bg: rgba(243, 244, 246, 0.8);
+            --card-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
+            --input-bg: rgba(0, 0, 0, 0.05);
+            --selection: rgba(0, 120, 212, 0.1);
+        }
+
+        /* --- GLOBAL STYLES --- */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background-color: var(--bg);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+            transition: background 0.4s ease, color 0.4s ease;
+        }
+
+        h1, h2, h3, .nav-brand {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-weight: 700;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul { list-style: none; }
+
+        /* --- LOADING SCREEN --- */
+        #loader {
+            position: fixed;
+            inset: 0;
+            background: var(--bg);
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.6s ease;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid var(--surface-border);
+            border-top: 4px solid var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* --- BACKGROUND ANIMATION --- */
+        .bg-blobs {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1;
+            overflow: hidden;
+            filter: blur(100px);
+            opacity: 0.4;
+        }
+
+        .blob {
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            border-radius: 50%;
+            background: var(--primary);
+            animation: move 20s infinite alternate;
+        }
+
+        .blob-1 { top: -10%; left: -10%; background: #0078d4; }
+        .blob-2 { bottom: -10%; right: -10%; background: #3b82f6; animation-delay: -5s; }
+
+        @keyframes move {
+            from { transform: translate(0, 0) scale(1); }
+            to { transform: translate(100px, 100px) scale(1.2); }
+        }
+
+        /* --- NAVIGATION --- */
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: var(--nav-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--surface-border);
+            padding: 0.75rem 0;
+        }
+
+        .nav-container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-brand {
+            font-size: 1.4rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-brand span {
+            background: linear-gradient(135deg, var(--primary), #60a5fa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-brand svg {
+            width: 28px;
+            height: 28px;
+            fill: var(--primary);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .nav-item {
+            padding: 0.6rem 1rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .nav-item:hover, .nav-item.active {
+            color: var(--text-main);
+            background: var(--input-bg);
+        }
+
+        .nav-item.active {
+            color: var(--primary);
+            background: var(--selection);
+        }
+
+        .mobile-toggle {
+            display: none;
+            cursor: pointer;
+        }
+
+        /* --- THEME TOGGLE --- */
+        .theme-btn {
+            background: var(--input-bg);
+            border: 1px solid var(--surface-border);
+            color: var(--text-main);
+            padding: 8px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            transition: transform 0.3s ease;
+        }
+
+        .theme-btn:hover { transform: rotate(15deg) scale(1.1); }
+
+        /* --- HERO --- */
+        .hero {
+            padding: 8rem 1.5rem 4rem;
+            text-align: center;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 8vw, 4.5rem);
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(to bottom, var(--text-main) 40%, var(--text-muted));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            margin-bottom: 2.5rem;
+        }
+
+        .hero-btns {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 0.8rem 2rem;
+            border-radius: 12px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 10px 20px -5px var(--accent-glow);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            background: var(--primary-hover);
+        }
+
+        .btn-discord {
+            background: var(--discord);
+            color: white;
+        }
+
+        .btn-discord:hover {
+            transform: translateY(-3px);
+            filter: brightness(1.1);
+        }
+
+        .btn-secondary {
+            background: var(--input-bg);
+            border: 1px solid var(--surface-border);
+            color: var(--text-main);
+            backdrop-filter: blur(10px);
+        }
+
+        .btn-secondary:hover {
+            background: var(--surface-border);
+            transform: translateY(-3px);
+        }
+
+        /* --- SEARCH --- */
+        .search-wrapper {
+            max-width: 600px;
+            margin: 0 auto 4rem;
+            position: relative;
+            padding: 0 1.5rem;
+        }
+
+        .search-bar {
+            width: 100%;
+            padding: 1.2rem 1.5rem 1.2rem 3.5rem;
+            border-radius: 100px;
+            border: 1px solid var(--surface-border);
+            background: var(--surface);
+            color: var(--text-main);
+            font-size: 1rem;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .search-bar:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px var(--accent-glow);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 2.5rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            pointer-events: none;
+        }
+
+        /* --- CONTENT SECTIONS --- */
+        .section-container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 4rem 1.5rem;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .section-title::after {
+            content: '';
+            height: 1px;
+            flex: 1;
+            background: var(--surface-border);
+        }
+
+        /* --- CARDS GRID --- */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--surface-border);
+            border-radius: 18px;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary);
+            box-shadow: var(--card-shadow);
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 4px; height: 100%;
+            background: var(--primary);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .card:hover::before { opacity: 1; }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+
+        .card-tag {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            font-weight: 800;
+            letter-spacing: 1px;
+            padding: 4px 10px;
+            background: var(--selection);
+            color: var(--primary);
+            border-radius: 6px;
+        }
+
+        .card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+        }
+
+        .card-meta {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 2rem;
+            padding: 1rem;
+            background: var(--input-bg);
+            border-radius: 12px;
+            font-size: 0.85rem;
+        }
+
+        .meta-item b { color: var(--text-main); display: block; margin-bottom: 2px; }
+        .meta-item span { color: var(--text-muted); }
+
+        .card-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        /* --- COMMUNITY SECTION --- */
+        .community-card {
+            background: linear-gradient(135deg, rgba(88, 101, 242, 0.1), rgba(0, 0, 0, 0));
+            border: 1px solid rgba(88, 101, 242, 0.3);
+            text-align: center;
+            padding: 4rem 2rem;
+        }
+
+        /* --- CREATOR SECTION --- */
+        .creator-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .info-box {
+            background: var(--input-bg);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border-left: 4px solid var(--primary);
+            margin: 1.5rem 0;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background: var(--surface);
+            border-top: 1px solid var(--surface-border);
+            padding: 4rem 1.5rem;
+            margin-top: 4rem;
+        }
+
+        .footer-grid {
+            max-width: 1300px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 4rem;
+        }
+
+        .footer-brand h2 { margin-bottom: 1rem; }
+        .footer-links h4 { margin-bottom: 1.2rem; color: var(--primary); }
+        .footer-links li { margin-bottom: 0.8rem; }
+        .footer-links a:hover { color: var(--primary); text-decoration: underline; }
+
+        .copyright {
+            max-width: 1300px;
+            margin: 3rem auto 0;
+            padding-top: 2rem;
+            border-top: 1px solid var(--surface-border);
+            text-align: center;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        /* --- UTILS --- */
+        .hidden { display: none !important; }
+        
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--primary);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 99;
+        }
+
+        .back-to-top.show { opacity: 1; visibility: visible; }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 992px) {
+            .footer-grid { grid-template-columns: 1fr 1fr; }
+            .hero h1 { font-size: 3rem; }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; } /* Simplified for code volume */
+            .hero { padding: 6rem 1.5rem 3rem; }
+            .grid { grid-template-columns: 1fr; }
+            .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
+            .mobile-toggle { display: block; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- LOADER -->
+    <div id="loader">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- ANIMATED BACKGROUND -->
+    <div class="bg-blobs">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+    </div>
+
+    <!-- NAVIGATION -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="nav-brand" onclick="showPage('home')">
+                <svg viewBox="0 0 24 24"><path d="M0 3.449L9.75 2.1v9.45H0V3.449zM0 12.45h9.75v9.45L0 20.551v-8.1zM10.8 1.95L24 0v11.55H10.8V1.95zM10.8 12.45H24v11.55l-13.2-1.95v-9.6z"/></svg>
+                <span>WMI Mirror</span>
+            </a>
+            
+            <div class="nav-links">
+                <div class="nav-item active" onclick="showPage('home')">Home</div>
+                <div class="nav-item" onclick="showPage('standard')">Downloads</div>
+                <div class="nav-item" onclick="showPage('tiny')">Tiny Windows</div>
+                <div class="nav-item" onclick="showPage('tools')">Tools</div>
+                <div class="nav-item" onclick="showPage('creator')">Creator</div>
+                <a href="https://discord.gg/rXQqdCBqya" target="_blank" class="nav-item">Discord</a>
+                
+                <button class="theme-btn" id="theme-toggle" title="Toggle Theme">
+                    <svg id="theme-icon" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                </button>
+            </div>
+
+            <div class="mobile-toggle" onclick="toggleMobileMenu()">
+                <svg width="30" height="30" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            </div>
+        </div>
+    </nav>
+
+    <!-- MAIN CONTENT -->
+    <main>
+        
+        <!-- PAGE: HOME -->
+        <div id="page-home" class="page">
+            <section class="hero">
+                <h1>Windows ISO Mirror</h1>
+                <p>Clean, unmodified Windows ISO downloads preserved and powered by the Internet Archive cluster. Experience a premium, safe, and fast retrieval system.</p>
+                <div class="hero-btns">
+                    <button class="btn btn-primary" onclick="showPage('standard')">
+                        <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 10V7h-2v5H8l4 4 4-4h-3z"/></svg>
+                        Browse Downloads
+                    </button>
+                    <a href="https://discord.gg/rXQqdCBqya" target="_blank" class="btn btn-secondary">
+                        Join Official Discord
+                    </a>
+                </div>
+            </section>
+
+            <div class="search-wrapper">
+                <svg class="search-icon" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><path d="M21 21l-4.35-4.35"></path></svg>
+                <input type="text" id="main-search" class="search-bar" placeholder="Search versions (e.g. 'Windows 11' or '64-bit')...">
+            </div>
+
+            <div class="section-container">
+                <div class="section-title">Standard Operating Systems</div>
+                <div class="grid" id="standard-grid">
+                    <!-- Standard ISOs will be injected here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- PAGE: TINY WINDOWS -->
+        <div id="page-tiny" class="page hidden">
+            <div class="section-container">
+                <div class="section-title">Tiny Windows Configurations</div>
+                <p style="color: var(--text-muted); margin-bottom: 2rem;">Specialized, lightweight builds designed for legacy hardware and virtualization.</p>
+                <div class="grid" id="tiny-grid">
+                    <!-- Tiny ISOs will be injected here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- PAGE: TOOLS -->
+        <div id="page-tools" class="page hidden">
+            <div class="section-container">
+                <div class="section-title">Recommended Tools</div>
+                <div class="grid">
+                    <div class="card">
+                        <div class="card-header">
+                            <span class="card-tag">Utility</span>
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="var(--primary)"><path d="M12 2L4.5 20.29l.71.71L12 18l6.79 3 .71-.71L12 2z"/></svg>
+                        </div>
+                        <h3>Rufus</h3>
+                        <p>The standard utility for creating bootable USB drives. Essential for installing standard ISOs on physical hardware.</p>
+                        <div class="card-actions">
+                            <a href="https://github.com/pbatard/rufus/releases/download/v4.14/rufus-4.14.exe" class="btn btn-primary">Download Rufus</a>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <span class="card-tag">Activation</span>
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="var(--primary)"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-5-5 1.41-1.41L11 14.17l7.59-7.59L20 8l-9 9z"/></svg>
+                        </div>
+                        <h3>Microsoft Activation Scripts (MAS)</h3>
+                        <p>Open-source, community-trusted Windows and Office activation scripts using HWID, Ohook, and KMS38 methods.</p>
+                        <div class="card-actions">
+                            <a href="https://massgrave.dev" target="_blank" class="btn btn-secondary">Visit massgrave.dev</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PAGE: CREATOR -->
+        <div id="page-creator" class="page hidden">
+            <div class="section-container">
+                <div class="creator-content">
+                    <div class="section-title">About the Curator</div>
+                    <div class="card">
+                        <p>This platform was conceptualized as an archive preservation resource designed to simplify obtaining original, unmodified installations of historical Microsoft Windows releases.</p>
+                        <div class="info-box">
+                            All download links are routed directly through global <strong>Internet Archive</strong> clusters, ensuring long-term accessibility and MD5 integrity.
+                        </div>
+                        <div class="card-meta">
+                            <div class="meta-item"><b>Curator</b><span>Wyper Soft Pillow</span></div>
+                            <div class="meta-item"><b>Hosting</b><span>GitHub Pages</span></div>
+                            <div class="meta-item"><b>Database</b><span>Public Domain Cataloging</span></div>
+                            <div class="meta-item"><b>Status</b><span>Stable / Active</span></div>
+                        </div>
+                        <div class="card-actions">
+                            <a href="https://discord.gg/rXQqdCBqya" target="_blank" class="btn btn-discord">Get in Touch via Discord</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- COMMUNITY SECTION (Persistent) -->
+        <div class="section-container">
+            <div class="card community-card">
+                <div class="card-tag" style="width: max-content; margin: 0 auto 1.5rem;">Join the Community</div>
+                <h2>Official Windows ISO Mirror Discord</h2>
+                <p style="max-width: 600px; margin: 1rem auto 2.5rem;">Request new ISOs, get installation support, report broken links, and chat with thousands of Windows enthusiasts.</p>
+                <div style="display: flex; gap: 2rem; justify-content: center; flex-wrap: wrap; margin-bottom: 2.5rem; color: var(--text-muted); font-size: 0.9rem;">
+                    <span>• Get Support</span>
+                    <span>• Request ISOs</span>
+                    <span>• Stay Updated</span>
+                    <span>• Safe Community</span>
+                </div>
+                <a href="https://discord.gg/rXQqdCBqya" target="_blank" class="btn btn-discord" style="padding: 1rem 3rem; font-size: 1.1rem;">
+                    Join WMI Discord Server
+                </a>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <div class="nav-brand">
+                    <svg viewBox="0 0 24 24"><path d="M0 3.449L9.75 2.1v9.45H0V3.449zM0 12.45h9.75v9.45L0 20.551v-8.1zM10.8 1.95L24 0v11.55H10.8V1.95zM10.8 12.45H24v11.55l-13.2-1.95v-9.6z"/></svg>
+                    <span>WMI Mirror</span>
+                </div>
+                <p style="color: var(--text-muted); margin-top: 1rem;">A specialized preservation project dedicated to providing clean, safe operating system installation media.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Powered by</h4>
+                <ul>
+                    <li><a href="https://pages.github.com/" target="_blank">GitHub Pages</a></li>
+                    <li><a href="https://archive.org/" target="_blank">Internet Archive</a></li>
+                    <li><a href="#">WMI</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Community</h4>
+                <ul>
+                    <li><a href="https://discord.gg/rXQqdCBqya" target="_blank">Official Windows ISO Mirror Discord</a></li>
+                    <li><a href="#" onclick="showPage('creator')">About KAT</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>Made by KAT</p>
+            <p style="margin-top: 0.5rem; opacity: 0.5; font-size: 0.8rem;">© 2024-2026 Windows Mirror Project. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- SCROLL TO TOP -->
+    <div class="back-to-top" id="backToTop">
+        <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path d="M18 15l-6-6-6 6"></path></svg>
+    </div>
+
+    <!-- JAVASCRIPT -->
+    <script>
+        /* --- DATA REPOSITORY --- */
+        const isoData = [
+            {
+                title: "Windows 11 Pro",
+                arch: "x64 (64-bit)",
+                edition: "Retail / Pro",
+                desc: "The latest Windows experience featuring a centered taskbar, snap layouts, and enhanced performance efficiency.",
+                source: "Internet Archive",
+                dl: "https://archive.org/download/windows-11-pro-x-64-bit-iso/windows%2011%20pro%20x64%20bit%20iso.iso",
+                archive: "https://archive.org/details/windows-11-pro-x-64-bit-iso",
+                type: "standard",
+                tags: "windows 11 pro x64 64bit"
+            },
+            {
+                title: "Windows 10 (21H1)",
+                arch: "x64 (64-bit)",
+                edition: "English US",
+                desc: "Balanced and stable version of Windows 10. Perfect for daily productivity and maximum hardware compatibility.",
+                source: "Internet Archive",
+                dl: "https://archive.org/download/win-10-21-h-1-english-x-64_20210711/Win10_21H1_English_x64.iso",
+                archive: "https://archive.org/details/win-10-21-h-1-english-x-64_20210711",
+                type: "standard",
+                tags: "windows 10 x64 64bit 21h1"
+            },
+            {
+                title: "Windows 8.1 Pro",
+                arch: "x64 (64-bit)",
+                edition: "Professional",
+                desc: "The refined version of the modern tile UI. Lightweight and extremely fast on older SSD-based systems.",
+                source: "Internet Archive",
+                dl: "https://archive.org/download/win-8.1/Win8.1_EnglishUS_x64.iso",
+                archive: "https://archive.org/details/win-8.1",
+                type: "standard",
+                tags: "windows 8.1 pro x64 64bit"
+            },
+            {
+                title: "Windows 7 Ultimate",
+                arch: "x64 (Service Pack 1)",
+                edition: "Ultimate (Aero)",
+                desc: "The legendary Windows 7. Ideal for retro gaming, legacy application testing, and virtual environments.",
+                source: "Internet Archive",
+                dl: "https://archive.org/download/windows-7-ultimate-x-64-sp-1-fully-loaded/Windows%207%20Ultimate%20x64%20-%20SP1%20%28Fully%20Loaded%29.iso",
+                archive: "https://archive.org/details/windows-7-ultimate-x-64-sp-1-fully-loaded",
+                type: "standard",
+                tags: "windows 7 ultimate x64 64bit sp1"
+            },
+            {
+                title: "Windows Vista (AIO)",
+                arch: "x64 (64-bit)",
+                edition: "All-in-One",
+                desc: "Preserved retail image containing all Vista editions. Includes the original Aero glass transparency effects.",
+                source: "Internet Archive",
+                dl: "https://archive.org/download/vista_x64/vista_x64.iso",
+                archive: "https://archive.org/details/vista_x64",
+                type: "standard",
+                tags: "windows vista x64 64bit aio"
+            },
+            {
+                title: "Windows XP Pro (SP3)",
+                arch: "x86 (32-bit)",
+                edition: "Professional SP3",
+                desc: "Ultra-light classic operating system. Preserved for legacy industrial software and early 2000s emulation.",
+                source: "Internet Archive",
+                dl: "https://archive.org/download/en_windows_xp_professional_with_service_pack_3_x86_cd_x14-80428_202010/en_windows_xp_professional_with_service_pack_3_x86_cd_x14-80428.iso",
+                archive: "https://archive.org/details/en_windows_xp_professional_with_service_pack_3_x86_cd_x14-80428_202010",
+                type: "standard",
+                tags: "windows xp pro sp3 x86 32bit"
+            },
+            {
+                title: "Tiny11",
+                arch: "x64 (64-bit)",
+                edition: "Minimalist Build",
+                desc: "A stripped-back version of Windows 11. Removes telemetry and bloatware for low-end hardware.",
+                source: "Community Preserved",
+                dl: "https://archive.org/download/tiny-11-NTDEV/tiny11%20b2%20%28no%20system%20req%20check%29.iso",
+                archive: "https://archive.org/details/tiny-11-NTDEV",
+                type: "tiny",
+                tags: "tiny11 tiny windows 11 x64"
+            },
+            {
+                title: "Tiny10",
+                arch: "x86 (32-bit)",
+                edition: "Lightweight 21H2",
+                desc: "The ultimate 32-bit Windows 10 configuration for systems with very little RAM and storage.",
+                source: "Community Preserved",
+                dl: "https://archive.org/download/tiny-10-NTDEV/tiny10%20x86%2021H2.iso",
+                archive: "https://archive.org/details/tiny-10-NTDEV",
+                type: "tiny",
+                tags: "tiny10 tiny windows 10 x86"
+            }
+        ];
+
+        /* --- CORE LOGIC --- */
+
+        // Page Loader
+        window.addEventListener('load', () => {
+            document.getElementById('loader').style.opacity = '0';
+            setTimeout(() => document.getElementById('loader').classList.add('hidden'), 600);
+            renderGrid();
+        });
+
+        // Search Implementation
+        const searchInput = document.getElementById('main-search');
+        searchInput.addEventListener('input', (e) => {
+            const val = e.target.value.toLowerCase();
+            renderGrid(val);
+        });
+
+        // Rendering Engine
+        function renderGrid(filter = "") {
+            const standardContainer = document.getElementById('standard-grid');
+            const tinyContainer = document.getElementById('tiny-grid');
+            
+            standardContainer.innerHTML = "";
+            tinyContainer.innerHTML = "";
+
+            isoData.forEach(iso => {
+                if(filter && !iso.tags.includes(filter)) return;
+
+                const card = `
+                    <div class="card">
+                        <div class="card-header">
+                            <span class="card-tag">${iso.type === 'tiny' ? 'Modified' : 'Official'}</span>
+                            <span style="font-size: 1.5rem">💿</span>
+                        </div>
+                        <h3>${iso.title}</h3>
+                        <p>${iso.desc}</p>
+                        <div class="card-meta">
+                            <div class="meta-item"><b>Architecture</b><span>${iso.arch}</span></div>
+                            <div class="meta-item"><b>Edition</b><span>${iso.edition}</span></div>
+                            <div class="meta-item"><b>Source</b><span>${iso.source}</span></div>
+                            <div class="meta-item"><b>Format</b><span>.ISO</span></div>
+                        </div>
+                        <div class="card-actions">
+                            <a href="${iso.dl}" class="btn btn-primary">Download ISO</a>
+                            <a href="${iso.archive}" target="_blank" class="btn btn-secondary">View Archive</a>
+                        </div>
+                    </div>
+                `;
+
+                if(iso.type === 'standard') standardContainer.innerHTML += card;
+                else tinyContainer.innerHTML += card;
+            });
+        }
+
+        // SPA Navigation Logic
+        function showPage(pageId) {
+            // Update Active Link UI
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+                if(item.innerText.toLowerCase() === pageId) item.classList.add('active');
+                // Special cases
+                if(pageId === 'standard' && item.innerText === 'Downloads') item.classList.add('active');
+            });
+
+            // Switch Visibility
+            document.querySelectorAll('.page').forEach(p => p.classList.add('hidden'));
+            
+            if(pageId === 'home') {
+                document.getElementById('page-home').classList.remove('hidden');
+            } else {
+                document.getElementById('page-' + pageId).classList.remove('hidden');
+            }
+            window.scrollTo(0, 0);
+        }
+
+        // Theme Management
+        const themeToggle = document.getElementById('theme-toggle');
+        const themeIcon = document.getElementById('theme-icon');
+        
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const targetTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            
+            document.documentElement.setAttribute('data-theme', targetTheme);
+            
+            if(targetTheme === 'light') {
+                themeIcon.innerHTML = `<path d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>`;
+            } else {
+                themeIcon.innerHTML = `<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>`;
+            }
+        });
+
+        // Back to top visibility
+        const btt = document.getElementById('backToTop');
+        window.addEventListener('scroll', () => {
+            if(window.scrollY > 400) btt.classList.add('show');
+            else btt.classList.remove('show');
+        });
+        btt.addEventListener('click', () => window.scrollTo(0, 0));
+
+        function toggleMobileMenu() {
+            // Simplified: in a real production site, a dropdown would appear
+            alert("This is a minimalist single-file portal. Please use the navigation links or desktop view for the best experience.");
+        }
+    </script>
+</body>
+</html>
