@@ -293,10 +293,10 @@
             padding: 0 1.5rem 6rem 1.5rem;
         }
 
-        /* SEARCH BAR */
+        /* SEARCH BAR & FILTERS */
         .search-container {
-            max-width: 600px;
-            margin: 3.5rem auto;
+            max-width: 800px;
+            margin: 3.5rem auto 1rem auto;
             position: relative;
         }
 
@@ -323,7 +323,7 @@
         .search-icon {
             position: absolute;
             left: 20px;
-            top: 50%;
+            top: 25px;
             transform: translateY(-50%);
             color: var(--text-muted);
             pointer-events: none;
@@ -336,15 +336,56 @@
             color: var(--primary);
         }
 
+        .filter-group {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin: 1.5rem auto 3rem auto;
+            max-width: 900px;
+        }
+
+        .filter-btn {
+            background: var(--btn-secondary-bg);
+            border: 1px solid var(--card-border);
+            color: var(--text-main);
+            padding: 0.5rem 1.25rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.25s ease;
+        }
+
+        .filter-btn:hover {
+            background: var(--btn-secondary-hover);
+            transform: translateY(-2px);
+        }
+
+        .filter-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+            box-shadow: 0 4px 12px var(--primary-glow);
+        }
+
         /* GRID SYSTEM & CARDS */
+        .generation-group {
+            margin-bottom: 4rem;
+        }
+
         .section-header {
             font-family: 'Plus Jakarta Sans', sans-serif;
             font-size: 1.75rem;
             font-weight: 700;
-            margin: 4rem 0 1.75rem 0;
+            margin: 0 0 1.75rem 0;
             display: flex;
             align-items: center;
             gap: 16px;
+        }
+        
+        .tools-section .section-header {
+            margin-top: 4rem;
         }
 
         .section-header::after {
@@ -386,7 +427,7 @@
             border-color: rgba(0, 120, 212, 0.35);
         }
 
-        /* DECORATIVE CARD STRIPES (FLUENT ACCENT COLORS) */
+        /* DECORATIVE CARD STRIPES */
         .card::before {
             content: '';
             position: absolute;
@@ -403,6 +444,7 @@
         .win7-card::before { background: linear-gradient(90deg, #3a7bd5, #3a6073); }
         .vista-card::before { background: linear-gradient(90deg, #4bf12c, #00d2ff); }
         .xp-card::before { background: linear-gradient(90deg, #d47a00, #ffba42); }
+        .classic-card::before { background: linear-gradient(90deg, #a8a8a8, #d3d3d3); }
 
         .card-header {
             display: flex;
@@ -428,8 +470,37 @@
             line-height: 1.6;
             font-size: 0.95rem;
             margin-bottom: 1.75rem;
-            min-height: 72px;
+            min-height: 50px;
         }
+        
+        .badges-container {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            margin-top: 8px;
+        }
+        
+        .badge {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 700;
+            padding: 4px 8px;
+            border-radius: 6px;
+        }
+
+        .badge.latest { background: rgba(0, 242, 254, 0.15); color: #00f2fe; border: 1px solid rgba(0, 242, 254, 0.3); }
+        .badge.popular { background: rgba(255, 186, 66, 0.15); color: #ffba42; border: 1px solid rgba(255, 186, 66, 0.3); }
+        .badge.modern { background: rgba(0, 120, 212, 0.15); color: #0078d4; border: 1px solid rgba(0, 120, 212, 0.3); }
+        .badge.legacy { background: rgba(161, 161, 170, 0.15); color: #a1a1aa; border: 1px solid rgba(161, 161, 170, 0.3); }
+        .badge.retro { background: rgba(212, 122, 0, 0.15); color: #d47a00; border: 1px solid rgba(212, 122, 0, 0.3); }
+        .badge.server { background: rgba(79, 70, 229, 0.15); color: #4f46e5; border: 1px solid rgba(79, 70, 229, 0.3); }
+        .badge.ltsc { background: rgba(75, 241, 44, 0.15); color: #4bf12c; border: 1px solid rgba(75, 241, 44, 0.3); }
+
+        [data-theme="light"] .badge.modern { color: #005a9e; }
+        [data-theme="light"] .badge.retro { color: #a35d00; }
+        [data-theme="light"] .badge.legacy { color: #4b5563; }
+        [data-theme="light"] .badge.latest { color: #008ba3; }
 
         /* METADATA DETAILS */
         .details {
@@ -469,6 +540,7 @@
             display: flex;
             flex-direction: column;
             gap: 0.75rem;
+            margin-top: auto;
         }
 
         .btn {
@@ -490,13 +562,13 @@
             box-shadow: 0 4px 14px var(--primary-glow);
         }
 
-        .btn:hover {
+        .btn:hover:not(.disabled) {
             transform: translateY(-2px);
             box-shadow: 0 6px 20px var(--primary-glow);
             filter: brightness(1.1);
         }
 
-        .btn:active {
+        .btn:active:not(.disabled) {
             transform: translateY(0);
         }
 
@@ -516,10 +588,18 @@
             box-shadow: none;
         }
 
-        .btn-secondary:hover {
+        .btn-secondary:hover:not(.disabled) {
             background-color: var(--btn-secondary-hover);
             border-color: rgba(255, 255, 255, 0.2);
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn.disabled {
+            background-color: rgba(161, 161, 170, 0.2);
+            color: var(--text-muted);
+            box-shadow: none;
+            cursor: not-allowed;
+            border: 1px dashed var(--card-border);
         }
 
         /* RECOMMENDED TOOLS SECTIONS */
@@ -577,7 +657,7 @@
 
         /* CREATOR INFO PAGE ELEMENT */
         .creator-section {
-            display: none; /* Controlled via script */
+            display: none;
             max-width: 800px;
             margin: 4rem auto;
             padding: 3rem;
@@ -716,25 +796,11 @@
 
         /* RESPONSIVE DESIGN */
         @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2.65rem;
-            }
-            .nav-container {
-                flex-direction: column;
-                gap: 1.25rem;
-            }
-            .grid {
-                grid-template-columns: 1fr;
-            }
-            .search-container {
-                margin: 2rem auto;
-            }
-            .back-to-top {
-                bottom: 20px;
-                right: 20px;
-                width: 40px;
-                height: 40px;
-            }
+            .hero h1 { font-size: 2.65rem; }
+            .nav-container { flex-direction: column; gap: 1.25rem; }
+            .grid { grid-template-columns: 1fr; }
+            .search-container { margin: 2rem auto; }
+            .back-to-top { bottom: 20px; right: 20px; width: 40px; height: 40px; }
         }
     </style>
 </head>
@@ -743,10 +809,7 @@
     <!-- LOADING SCREEN -->
     <div class="loader-wrapper" id="loader">
         <div class="loader">
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
+            <div></div><div></div><div></div><div></div>
         </div>
     </div>
 
@@ -760,11 +823,10 @@
     <nav class="navbar">
         <div class="nav-container">
             <a href="#" class="nav-brand" onclick="switchPage('standard')">
-                <!-- Windows 11 Fluent Icon styled SVG -->
                 <svg viewBox="0 0 24 24">
                     <path d="M0 3.449L9.75 2.1v9.45H0V3.449zM0 12.45h9.75v9.45L0 20.551v-8.1zM10.8 1.95L24 0v11.55H10.8V1.95zM10.8 12.45H24v11.55l-13.2-1.95v-9.6z"/>
                 </svg>
-                WMI Mirror
+                Windows Mirror
             </a>
             <div class="nav-menu">
                 <div class="nav-tabs">
@@ -788,149 +850,685 @@
         <div id="standard-page">
             <!-- HERO HEADER -->
             <section class="hero">
-                <h1>Windows ISO Mirror</h1>
-                <p>Clean Windows ISO repository powered by Internet Archive, GitHub Pages and the Windows Mirror ISO Community.</p>
+                <h1>Windows Mirror</h1>
+                <p>The complete Windows operating system archive powered by GitHub Pages, Internet Archive and the Windows Mirror ISO Community.</p>
                 <div class="hero-btn-group">
-                    <a href="#downloads-section" class="btn">
+                    <a href="#search-section" class="btn">
                         <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 10V7h-2v5H8l4 4 4-4h-3z"/></svg>
-                        Browse Downloads
+                        Browse Archive
                     </a>
-                    <a href="https://discord.gg/XdJDtqwXGM" target="_blank" class="btn btn-discord">
+                    <a href="https://discord.gg/rXQqdCBqya" target="_blank" class="btn btn-discord">
                         <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994.021-.041.001-.09-.041-.106a13.094 13.094 0 0 1-1.873-.894.077.077 0 0 1-.008-.128c.126-.093.252-.19.372-.287a.075.075 0 0 1 .077-.011c3.92 1.793 8.18 1.793 12.061 0a.073.073 0 0 1 .078.009c.12.099.246.195.373.289a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.894.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.156-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.156 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.156-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.156 2.418z"/></svg>
                         Join WMI Discord
                     </a>
                 </div>
             </section>
 
-            <!-- LIVE SEARCH BAR -->
-            <div class="search-container">
-                <input type="text" id="search" class="search-bar" placeholder="Search Windows versions (e.g. Windows 11, XP, 64-bit)...">
+            <!-- LIVE SEARCH & FILTERS -->
+            <div class="search-container" id="search-section">
+                <input type="text" id="search" class="search-bar" placeholder="Search version, edition, architecture or year (e.g. Windows 11, Pro, 64-bit, 2021)...">
                 <svg class="search-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                 </svg>
             </div>
+            
+            <div class="filter-group" id="filters">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="modern">Modern</button>
+                <button class="filter-btn" data-filter="legacy">Legacy</button>
+                <button class="filter-btn" data-filter="retro">Retro</button>
+                <button class="filter-btn" data-filter="server">Server</button>
+                <button class="filter-btn" data-filter="ltsc">LTSC</button>
+                <button class="filter-btn" data-filter="32-bit">32-bit</button>
+                <button class="filter-btn" data-filter="64-bit">64-bit</button>
+            </div>
 
-            <!-- DOWNLOADS SECTION -->
-            <div class="section-header" id="downloads-section">Operating System ISOs</div>
-            <div class="grid" id="iso-grid">
+            <div id="iso-container">
+                <!-- Windows 11 Generation -->
+                <div class="generation-group">
+                    <div class="section-header">Windows 11 Collection</div>
+                    <div class="grid">
+                        <!-- Win 11 Home -->
+                        <div class="card glass win11-card" data-tags="windows 11 home 64-bit 2021 modern">
+                            <div>
+                                <div class="card-header">
+                                    <div>
+                                        <div style="display:flex; align-items:center; gap:10px;"><h2>Windows 11 Home</h2><span class="os-icon">🟦</span></div>
+                                        <div class="badges-container"><span class="badge modern">Modern</span><span class="badge latest">Latest</span></div>
+                                    </div>
+                                </div>
+                                <p>The standard edition of Windows 11 designed for home users and standard computing tasks.</p>
+                                <div class="details">
+                                    <div class="details-row"><span class="label">Architecture:</span> <span class="value">x64 (64-bit)</span></div>
+                                    <div class="details-row"><span class="label">Release Year:</span> <span class="value">2021</span></div>
+                                </div>
+                            </div>
+                            <div class="btn-group">
+                                <a href="#" class="btn disabled" onclick="return false;">Coming Soon</a>
+                            </div>
+                        </div>
+
+                        <!-- Win 11 Pro -->
+                        <div class="card glass win11-card" data-tags="windows 11 pro 64-bit 2021 modern popular">
+                            <div>
+                                <div class="card-header">
+                                    <div>
+                                        <div style="display:flex; align-items:center; gap:10px;"><h2>Windows 11 Pro</h2><span class="os-icon">🟦</span></div>
+                                        <div class="badges-container"><span class="badge modern">Modern</span><span class="badge latest">Latest</span><span class="badge popular">Popular</span></div>
+                                    </div>
+                                </div>
+                                <p>Experience the modern layout of Windows 11. Designed for enhanced security, snap layouts, and an updated ecosystem.</p>
+                                <div class="details">
+                                    <div class="details-row"><span class="label">Architecture:</span> <span class="value">x64 (64-bit)</span></div>
+                                    <div class="details-row"><span class="label">Release Year:</span> <span class="value">2021</span></div>
+                                </div>
+                            </div>
+                            <div class="btn-group">
+                                <a href="https://archive.org/download/windows-11-pro-x-64-bit-iso/windows%2011%20pro%20x64%20bit%20iso.iso" class="btn">Direct Download ISO</a>
+                                <a href="https://archive.org/details/windows-11-pro-x-64-bit-iso" target="_blank" class="btn btn-secondary">View Source Page</a>
+                            </div>
+                        </div>
+
+                        <!-- Win 11 Enterprise -->
+                        <div class="card glass win11-card" data-tags="windows 11 enterprise 64-bit 2021 modern server">
+                            <div>
+                                <div class="card-header">
+                                    <div>
+                                        <div style="display:flex; align-items:center; gap:10px;"><h2>Windows 11 Enterprise</h2><span class="os-icon">🟦</span></div>
+                                        <div class="badges-container"><span class="badge modern">Modern</span><span class="badge server">Enterprise</span></div>
+                                    </div>
+                                </div>
+                                <p>Advanced deployment and security management for large organizations and professional networking environments.</p>
+                                <div class="details">
+                                    <div class="details-row"><span class="label">Architecture:</span> <span class="value">x64 (64-bit)</span></div>
+                                    <div class="details-row"><span class="label">Release Year:</span> <span class="value">2021</span></div>
+                                </div>
+                            </div>
+                            <div class="btn-group">
+                                <a href="#" class="btn disabled" onclick="return false;">Coming Soon</a>
+                            </div>
+                        </div>
+
+                        <!-- Win 11 Education -->
+                        <div class="card glass win11-card" data-tags="windows 11 education 64-bit 2021 modern">
+                            <div>
+                                <div class="card-header">
+                                    <div>
+                                        <div style="display:flex; align-items:center; gap:10px;"><h2>Windows 11 Education</h2><span class="os-icon">🟦</span></div>
+                                        <div class="badges-container"><span class="badge modern">Modern</span></div>
+                                    </div>
+                                </div>
+                                <p>Designed specifically for schools and academic institutions with tailored management and deployment tools.</p>
+                                <div class="details">
+                                    <div class="details-row"><span class="label">Architecture:</span> <span class="value">x64 (64-bit)</span></div>
+                                    <div class="details-row"><span class="label">Release Year:</span> <span class="value">2021</span></div>
+                                </div>
+                            </div>
+                            <div class="btn-group">
+                                <a href="#" class="btn disabled" onclick="return false;">Coming Soon</a>
+                            </div>
+                        </div>
+
+                        <!-- Win 11 LTSC -->
+                        <div class="card glass win11-card" data-tags="windows 11 ltsc 64-bit modern server ltsc">
+                            <div>
+                                <div class="card-header">
+                                    <div>
+                                        <div style="display:flex; align-items:center; gap:10px;"><h2>Windows 11 LTSC</h2><span class="os-icon">🟦</span></div>
+                                        <div class="badges-container"><span class="badge modern">Modern</span><span class="badge ltsc">LTSC</span></div>
+                                    </div>
+                                </div>
+                                <p>Long-Term Servicing Channel release for mission-critical hardware requiring zero feature interruptions.</p>
+                                <div class="details">
+                                    <div class="details-row"><span class="label">Architecture:</span> <span class="value">x64 (64-bit)</span></div>
+                                    <div class="details-row"><span class="label">Release Year:</span> <span class="value">Pending</span></div>
+                                </div>
+                            </div>
+                            <div class="btn-group">
+                                <a href="#" class="btn disabled" onclick="return false;">Coming Soon</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Windows 10 Generation -->
+                <div class="generation-group">
+                    <div class="section-header">Windows 10 Collection</div>
+                    <div class="grid">
+                        <!-- Win 10 Home -->
+                        <div class="card glass win10-card" data-tags="windows 10 home 64-bit 32-bit 2015 modern">
+                            <div>
+                                <div class="card-header">
+                                    <div>
+                                        <div style="display:flex; align-items:center; gap:10px;"><h2>Windows 10 Home</h2><span class="os-icon">❖</span></div>
+                                        <div class="badges-container"><span class="badge modern">Modern</span></div>
+                                    </div>
+                                </div>
+                                <p>The baseline desktop experience for everyday computing, multimedia, and gaming.</p>
+                                <div class="details">
+                                    <div class="details-row"><span class="label">Architecture:</span> <span class="value">x64 / x86</span></div>
+                                    <div class="details-row"><span class="label">Release Year:</span> <span class="value">2015</span></div>
+                                </div>
+                            </div>
+                            <div class="btn-group">
+                                <a href="#" class="btn disabled" onclick="return false;">Coming Soon</a>
+                            </div>
+                        </div>
+
+                        <!-- Win 10 Pro (21H1) -->
+                        <div class="card glass win10-card" data-tags="windows 10 pro 21h1 64-bit 2015 modern popular">
+                            <div>
+                                <div class="card-header">
+                                    <div>
+                                        <div style="display:flex; align-items:center; gap:10px;"><h2>Windows 10 Pro (21H1)</h2><span class="os-icon">❖</span></div>
+                                        <div class="badges-container"><span class="badge modern">Modern</span><span class="badge popular">Popular</span></div>
+                                    </div>
+                                </div>
+                                <p>Clean English edition of Windows 10. Known for its versatile performance stability, legacy system compatibility, and optimal hardware support.</p>
+                                <div class="details">
+                                    <div class="details-row"><span class="label">Architecture:</span> <span class="value">x64 (64-bit)</span></div>
+                                    <div class="details-row"><span class="label">Release Year:</span> <span class="value">2015 (Updated 2021)</span></div>
+                                </div>
+                            </div>
+                            <div class="btn-group">
+                                <a href="https://archive.org/download/win-10-21-h-1-english-x-64_20210711/Win10_21H1_English_x64.iso" class="btn">Direct Download ISO</a>
+                                <a href="https://archive.org/details/win-10-21-h-1-english-x-64_20210711" target="_blank" class="btn btn-secondary">View Source Page</a>
+                            </div>
+                        </div>
+                        
+                        <!-- Win 10 Enterprise -->
+                        <div class="card glass win10-card" data-tags="windows 10 enterprise 64-bit 32-bit 2015 modern server">
+                            <div>
+                                <div class="card-header">
+                                    <div>
+                                        <div style="display:flex; align-items:center; gap:10px;"><h2>Windows 10 Enterprise</h2><span class="os-icon">❖</span></div>
+                                        <div class="badges-container"><span class="badge modern">Modern</span><span class="badge server">Enterprise</span></div>
+                                    </div>
+                                </div>
+                                <p>Comprehensive security and management for IT professionals and large-scale deployments.</p>
+                                <div class="details">
+                                    <div class="details-row"><span class="label">Architecture:</span> <span class="value">x64 / x86</span></div>
+                                    <div class="details-row"><span class="label">Release Year:</span> <span class="value">2015</span></div>
+                                </div>
+                            </div>
+                            <div class="btn-group">
+                                <a href="#" class="btn disabled" onclick="return false;">Coming Soon</a>
+                            </div>
+                        </div>
+
+                        <!-- Win 10 Education -->
+                        <div class="card glass win10-card" data-tags="windows 10 education 64-bit 32-bit 2015 modern">
+                            <div>
+                                <div class="card-header">
+                                    <div>
+                                        <div style="display:flex; align-items:center; gap:10px;"><h2>Windows 10 Education</h2><span class="os-icon">❖</span></div>
+                                        <div class="badges-container"><span class="badge modern">Modern</span></div>
+                                    </div>
+                                </div>
+                                <p>Variant built on Enterprise fundamentals customized for educational institutions.</p>
+                                <div class="details">
+                                    <div class="details-row"><span class="label">Architecture:</span> <span class="value">x64 / x86</span></div>
+                                    <div class="details-row"><span class="label">Release Year:</span> <span class="value">2015</span></div>
+                                </div>
+                            </div>
+                            <div class="btn-group">
+                                <a href="#" class="btn disabled" onclick="return false;">Coming Soon</a>
+                            </div>
+                        </div>
+
+                        <!-- Win 10 LTSC -->
+                        <div class="card glass win10-card" data-tags="windows 10 ltsc 64-bit 2015 modern server ltsc popular">
+                            <div>
+                                <div class="card-header">
+                                    <div>
+                                        <div style="display:flex; align-items:center; gap:10px;"><h2>Windows 10 LTSC</h2><span class="os-icon">❖</span></div>
+                                        <div class="badges-container"><span class="badge modern">Modern</span><span class="badge ltsc">LTSC</span><span class="badge popular">Popular</span></div>
+                                    </div>
+                                </div>
+                                <p>Long-Term Servicing Channel. Extremely stable, stripped-down environment with no forced feature updates.</p>
+                                <div class="details">
+                                    <div class="details-row"><span class="label">Architecture:</span> <span class="value">x64 (64-bit)</span></div>
+                                    <div class="details-row"><span class="label">Release Year:</span> <span class="value">2015</span></div>
+                                </div>
+                            </div>
+                            <div class="btn-group">
+                                <a href="#" class="btn disabled" onclick="return false;">Coming Soon</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Windows 8.1 Generation -->
+                <div class="generation-group">
+                    <div class="section-header">Windows 8.1 Collection</div>
+                    <div class="grid">
+                        <div class="card glass win8-card" data-tags="windows 8.1 core 64-bit 32-bit 2013 legacy">
+                            <div>
+                                <div class="card-header">
+                                    <div>
+                                        <div style="display:flex; align-items:center; gap:10px;"><h2>Windows 8.1 Core</h2><span class="os-icon">⚏</span></div>
+                                        <div class="badges-container"><span class="badge legacy">Legacy</span></div>
+                                    </div>
+                                </div>
+                                <p>Standard home edition featuring the Start button return and refined flat-tile UI updates.</p>
+                                <div class="details">
+                                    <div class="details-row"><span class="label">Architecture:</span> <span class="value">x64 / x86</span></div>
+                                    <div class="details-row"><span class="label">Release Year:</span> <span class="value">2013</span></div>
+                                </div>
+                            </div>
+                            <div class="btn-group"><a href="#" class="btn disabled" onclick="return false;">Coming Soon</a></div>
+                        </div>
+
+                        <div class="card glass win8-card" data-tags="windows 8.1 pro 64-bit 2013 legacy popular">
+                            <div>
+                                <div class="card-header">
+                                    <div>
+                                        <div style="display:flex; align-items:center; gap:10px;"><h2>Windows 8.1 Pro</h2><span class="os-icon">⚏</span></div>
+                                        <div class="badges-container"><span class="badge legacy">Legacy</span><span class="badge popular">Popular</span></div>
+                                    </div>
+                                </div>
+                                <p>The refined tile-interface ecosystem. Merges modern flat UI components with traditional desktop performance.</p>
+                                <div class="details">
+                                    <div class="details-row"><span class="label">Architecture:</span> <span class="value">x64 (64-bit Edition)</span></div>
+                                    <div class="details-row"><span class="label">Release Year:</span> <span class="value">2013</span></div>
+                                </div>
+                            </div>
+                            <div class="btn-group">
+                                <a href="https://archive.org/download/win-8.1/Win8.1_EnglishUS_x64.iso" class="btn">Direct Download ISO</a>
+                                <a href="https://archive.org/details/win-8.1" target="_blank" class="btn btn-secondary">View Source Page</a>
+                            </div>
+                        </div>
+
+                        <div class="card glass win8-card" data-tags="windows 8.1 enterprise 64-bit 32-bit 2013 legacy server">
+                            <div>
+                                <div class="card-header">
+                                    <div>
+                                        <div style="display:flex; align-items:center; gap:10px;"><h2>Windows 8.1 Enterprise</h2><span class="os-icon">⚏</span></div>
+                                        <div class="badges-container"><span class="badge legacy">Legacy</span><span class="badge server">Enterprise</span></div>
+                                    </div>
+                                </div>
+                                <p>Advanced administration tools, virtualization, and networking features for the corporate sector.</p>
+                                <div class="details">
+                                    <div class="details-row"><span class="label">Architecture:</span> <span class="value">x64 / x86</span></div>
+                                    <div class="details-row"><span class="label">Release Year:</span> <span class="value">2013</span></div>
+                                </div>
+                            </div>
+                            <div class="btn-group"><a href="#" class="btn disabled" onclick="return false;">Coming Soon</a></div>
+                        </div>
+                    </div>
+                </div>
                 
-                <!-- Windows 11 -->
-                <div class="card glass win11-card" data-tags="windows 11 pro x64 64-bit modern standard">
-                    <div>
-                        <div class="card-header">
-                            <h2>Windows 11 Pro</h2>
-                            <span class="os-icon">🟦</span>
+                <!-- Windows 8 Generation -->
+                <div class="generation-group">
+                    <div class="section-header">Windows 8 Collection</div>
+                    <div class="grid">
+                        <div class="card glass win8-card" data-tags="windows 8 core 64-bit 32-bit 2012 legacy">
+                            <div>
+                                <div class="card-header">
+                                    <div><div style="display:flex; align-items:center; gap:10px;"><h2>Windows 8 Core</h2><span class="os-icon">⚏</span></div><div class="badges-container"><span class="badge legacy">Legacy</span></div></div>
+                                </div>
+                                <p>Original Windows 8 release introducing the radical Metro interface paradigm shift.</p>
+                                <div class="details">
+                                    <div class="details-row"><span class="label">Architecture:</span> <span class="value">x64 / x86</span></div><div class="details-row"><span class="label">Release Year:</span> <span class="value">2012</span></div>
+                                </div>
+                            </div>
+                            <div class="btn-group"><a href="#" class="btn disabled" onclick="return false;">Coming Soon</a></div>
                         </div>
-                        <p>Experience the modern layout of Windows 11. Designed for enhanced security, snap layouts, integrated virtual desktops, and an updated ecosystem.</p>
-                        <div class="details">
-                            <div class="details-row"><span class="label">Architecture:</span> <span class="value">x64 (64-bit)</span></div>
-                            <div class="details-row"><span class="label">Format:</span> <span class="value">Standard .ISO</span></div>
-                            <div class="details-row"><span class="label">Source:</span> <span class="value">Internet Archive</span></div>
+                        <div class="card glass win8-card" data-tags="windows 8 pro 64-bit 32-bit 2012 legacy">
+                            <div>
+                                <div class="card-header">
+                                    <div><div style="display:flex; align-items:center; gap:10px;"><h2>Windows 8 Pro</h2><span class="os-icon">⚏</span></div><div class="badges-container"><span class="badge legacy">Legacy</span></div></div>
+                                </div>
+                                <p>Professional edition of the original Windows 8 system tailored for enthusiasts.</p>
+                                <div class="details">
+                                    <div class="details-row"><span class="label">Architecture:</span> <span class="value">x64 / x86</span></div><div class="details-row"><span class="label">Release Year:</span> <span class="value">2012</span></div>
+                                </div>
+                            </div>
+                            <div class="btn-group"><a href="#" class="btn disabled" onclick="return false;">Coming Soon</a></div>
                         </div>
-                    </div>
-                    <div class="btn-group">
-                        <a href="https://archive.org/download/windows-11-pro-x-64-bit-iso/windows%2011%20pro%20x64%20bit%20iso.iso" class="btn">Direct Download ISO</a>
-                        <a href="https://archive.org/details/windows-11-pro-x-64-bit-iso" target="_blank" class="btn btn-secondary">View Source Page</a>
+                        <div class="card glass win8-card" data-tags="windows 8 enterprise 64-bit 32-bit 2012 legacy server">
+                            <div>
+                                <div class="card-header">
+                                    <div><div style="display:flex; align-items:center; gap:10px;"><h2>Windows 8 Enterprise</h2><span class="os-icon">⚏</span></div><div class="badges-container"><span class="badge legacy">Legacy</span><span class="badge server">Enterprise</span></div></div>
+                                </div>
+                                <p>Volume-licensed edition offering advanced control architectures for corporate environments.</p>
+                                <div class="details">
+                                    <div class="details-row"><span class="label">Architecture:</span> <span class="value">x64 / x86</span></div><div class="details-row"><span class="label">Release Year:</span> <span class="value">2012</span></div>
+                                </div>
+                            </div>
+                            <div class="btn-group"><a href="#" class="btn disabled" onclick="return false;">Coming Soon</a></div>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Windows 10 -->
-                <div class="card glass win10-card" data-tags="windows 10 21h1 x64 64-bit stability standard">
-                    <div>
-                        <div class="card-header">
-                            <h2>Windows 10 (21H1)</h2>
-                            <span class="os-icon">❖</span>
+                <!-- Windows 7 Generation -->
+                <div class="generation-group">
+                    <div class="section-header">Windows 7 Collection</div>
+                    <div class="grid">
+                        <div class="card glass win7-card" data-tags="windows 7 starter 32-bit 2009 legacy">
+                            <div>
+                                <div class="card-header"><div><div style="display:flex; align-items:center; gap:10px;"><h2>Windows 7 Starter</h2><span class="os-icon">💿</span></div><div class="badges-container"><span class="badge legacy">Legacy</span></div></div></div>
+                                <p>Stripped down version primarily shipped on low-end netbook hardware configurations.</p>
+                                <div class="details"><div class="details-row"><span class="label">Architecture:</span> <span class="value">x86 (32-bit)</span></div><div class="details-row"><span class="label">Release Year:</span> <span class="value">2009</span></div></div>
+                            </div>
+                            <div class="btn-group"><a href="#" class="btn disabled" onclick="return false;">Coming Soon</a></div>
                         </div>
-                        <p>Clean English edition of Windows 10. Known for its versatile performance stability, legacy system compatibility, and optimal hardware support.</p>
-                        <div class="details">
-                            <div class="details-row"><span class="label">Architecture:</span> <span class="value">x64 (64-bit)</span></div>
-                            <div class="details-row"><span class="label">Format:</span> <span class="value">Standard .ISO</span></div>
-                            <div class="details-row"><span class="label">Source:</span> <span class="value">Internet Archive</span></div>
+                        <div class="card glass win7-card" data-tags="windows 7 home basic 64-bit 32-bit 2009 legacy">
+                            <div>
+                                <div class="card-header"><div><div style="display:flex; align-items:center; gap:10px;"><h2>Windows 7 Home Basic</h2><span class="os-icon">💿</span></div><div class="badges-container"><span class="badge legacy">Legacy</span></div></div></div>
+                                <p>Entry-level OS in emerging markets omitting advanced Aero graphic effects.</p>
+                                <div class="details"><div class="details-row"><span class="label">Architecture:</span> <span class="value">x64 / x86</span></div><div class="details-row"><span class="label">Release Year:</span> <span class="value">2009</span></div></div>
+                            </div>
+                            <div class="btn-group"><a href="#" class="btn disabled" onclick="return false;">Coming Soon</a></div>
                         </div>
-                    </div>
-                    <div class="btn-group">
-                        <a href="https://archive.org/download/win-10-21-h-1-english-x-64_20210711/Win10_21H1_English_x64.iso" class="btn">Direct Download ISO</a>
-                        <a href="https://archive.org/details/win-10-21-h-1-english-x-64_20210711" target="_blank" class="btn btn-secondary">View Source Page</a>
+                        <div class="card glass win7-card" data-tags="windows 7 home premium 64-bit 32-bit 2009 legacy popular">
+                            <div>
+                                <div class="card-header"><div><div style="display:flex; align-items:center; gap:10px;"><h2>Windows 7 Home Premium</h2><span class="os-icon">💿</span></div><div class="badges-container"><span class="badge legacy">Legacy</span><span class="badge popular">Popular</span></div></div></div>
+                                <p>Standard mainstream release for home users featuring full Aero Glass interface.</p>
+                                <div class="details"><div class="details-row"><span class="label">Architecture:</span> <span class="value">x64 / x86</span></div><div class="details-row"><span class="label">Release Year:</span> <span class="value">2009</span></div></div>
+                            </div>
+                            <div class="btn-group"><a href="#" class="btn disabled" onclick="return false;">Coming Soon</a></div>
+                        </div>
+                        <div class="card glass win7-card" data-tags="windows 7 professional 64-bit 32-bit 2009 legacy">
+                            <div>
+                                <div class="card-header"><div><div style="display:flex; align-items:center; gap:10px;"><h2>Windows 7 Professional</h2><span class="os-icon">💿</span></div><div class="badges-container"><span class="badge legacy">Legacy</span></div></div></div>
+                                <p>Targeted towards enthusiasts and small businesses needing domain join capabilities.</p>
+                                <div class="details"><div class="details-row"><span class="label">Architecture:</span> <span class="value">x64 / x86</span></div><div class="details-row"><span class="label">Release Year:</span> <span class="value">2009</span></div></div>
+                            </div>
+                            <div class="btn-group"><a href="#" class="btn disabled" onclick="return false;">Coming Soon</a></div>
+                        </div>
+                        <div class="card glass win7-card" data-tags="windows 7 ultimate x64 sp1 64-bit 2009 legacy popular">
+                            <div>
+                                <div class="card-header">
+                                    <div>
+                                        <div style="display:flex; align-items:center; gap:10px;"><h2>Windows 7 Ultimate</h2><span class="os-icon">💿</span></div>
+                                        <div class="badges-container"><span class="badge legacy">Legacy</span><span class="badge popular">Popular</span></div>
+                                    </div>
+                                </div>
+                                <p>Legacy operating system preservation. Intended primarily for retro setups or virtual machines.</p>
+                                <div class="details">
+                                    <div class="details-row"><span class="label">Architecture:</span> <span class="value">x64 (Service Pack 1)</span></div>
+                                    <div class="details-row"><span class="label">Release Year:</span> <span class="value">2009</span></div>
+                                </div>
+                            </div>
+                            <div class="btn-group">
+                                <a href="https://archive.org/download/windows-7-ultimate-x-64-sp-1-fully-loaded/Windows%207%20Ultimate%20x64%20-%20SP1%20%28Fully%20Loaded%29.iso" class="btn">Direct Download ISO</a>
+                                <a href="https://archive.org/details/windows-7-ultimate-x-64-sp-1-fully-loaded" target="_blank" class="btn btn-secondary">View Source Page</a>
+                            </div>
+                        </div>
+                        <div class="card glass win7-card" data-tags="windows 7 enterprise 64-bit 32-bit 2009 legacy server">
+                            <div>
+                                <div class="card-header"><div><div style="display:flex; align-items:center; gap:10px;"><h2>Windows 7 Enterprise</h2><span class="os-icon">💿</span></div><div class="badges-container"><span class="badge legacy">Legacy</span><span class="badge server">Enterprise</span></div></div></div>
+                                <p>IT-focused edition with advanced security tooling like BitLocker Drive Encryption.</p>
+                                <div class="details"><div class="details-row"><span class="label">Architecture:</span> <span class="value">x64 / x86</span></div><div class="details-row"><span class="label">Release Year:</span> <span class="value">2009</span></div></div>
+                            </div>
+                            <div class="btn-group"><a href="#" class="btn disabled" onclick="return false;">Coming Soon</a></div>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Windows 8.1 -->
-                <div class="card glass win8-card" data-tags="windows 8.1 pro x64 64-bit tile flat standard">
-                    <div>
-                        <div class="card-header">
-                            <h2>Windows 8.1 Pro</h2>
-                            <span class="os-icon">⚏</span>
+                <!-- Windows Vista Generation -->
+                <div class="generation-group">
+                    <div class="section-header">Windows Vista Collection</div>
+                    <div class="grid">
+                        <div class="card glass vista-card" data-tags="windows vista starter 32-bit 2006 legacy">
+                            <div>
+                                <div class="card-header"><div><div style="display:flex; align-items:center; gap:10px;"><h2>Windows Vista Starter</h2><span class="os-icon">🟢</span></div><div class="badges-container"><span class="badge legacy">Legacy</span></div></div></div>
+                                <p>Highly limited emerging-markets edition restricted to running three programs simultaneously.</p>
+                                <div class="details"><div class="details-row"><span class="label">Architecture:</span> <span class="value">x86 (32-bit)</span></div><div class="details-row"><span class="label">Release Year:</span> <span class="value">2006</span></div></div>
+                            </div>
+                            <div class="btn-group"><a href="#" class="btn disabled" onclick="return false;">Coming Soon</a></div>
                         </div>
-                        <p>The refined tile-interface ecosystem. Merges modern flat UI components with traditional desktop performance, optimized for lightweight devices.</p>
-                        <div class="details">
-                            <div class="details-row"><span class="label">Architecture:</span> <span class="value">x64 (64-bit Edition)</span></div>
-                            <div class="details-row"><span class="label">Format:</span> <span class="value">Standard .ISO</span></div>
-                            <div class="details-row"><span class="label">Source:</span> <span class="value">Internet Archive</span></div>
+                        <div class="card glass vista-card" data-tags="windows vista home basic 64-bit 32-bit 2006 legacy">
+                            <div>
+                                <div class="card-header"><div><div style="display:flex; align-items:center; gap:10px;"><h2>Vista Home Basic</h2><span class="os-icon">🟢</span></div><div class="badges-container"><span class="badge legacy">Legacy</span></div></div></div>
+                                <p>Standard edition omitting the Aero Glass interface for lower-powered systems.</p>
+                                <div class="details"><div class="details-row"><span class="label">Architecture:</span> <span class="value">x64 / x86</span></div><div class="details-row"><span class="label">Release Year:</span> <span class="value">2006</span></div></div>
+                            </div>
+                            <div class="btn-group"><a href="#" class="btn disabled" onclick="return false;">Coming Soon</a></div>
                         </div>
-                    </div>
-                    <div class="btn-group">
-                        <a href="https://archive.org/download/win-8.1/Win8.1_EnglishUS_x64.iso" class="btn">Direct Download ISO</a>
-                        <a href="https://archive.org/details/win-8.1" target="_blank" class="btn btn-secondary">View Source Page</a>
+                        <div class="card glass vista-card" data-tags="windows vista home premium 64-bit 32-bit 2006 legacy">
+                            <div>
+                                <div class="card-header"><div><div style="display:flex; align-items:center; gap:10px;"><h2>Vista Home Premium</h2><span class="os-icon">🟢</span></div><div class="badges-container"><span class="badge legacy">Legacy</span></div></div></div>
+                                <p>Mainstream edition bringing Media Center, DVD Maker, and Aero transparency.</p>
+                                <div class="details"><div class="details-row"><span class="label">Architecture:</span> <span class="value">x64 / x86</span></div><div class="details-row"><span class="label">Release Year:</span> <span class="value">2006</span></div></div>
+                            </div>
+                            <div class="btn-group"><a href="#" class="btn disabled" onclick="return false;">Coming Soon</a></div>
+                        </div>
+                        <div class="card glass vista-card" data-tags="windows vista business 64-bit 32-bit 2006 legacy">
+                            <div>
+                                <div class="card-header"><div><div style="display:flex; align-items:center; gap:10px;"><h2>Windows Vista Business</h2><span class="os-icon">🟢</span></div><div class="badges-container"><span class="badge legacy">Legacy</span></div></div></div>
+                                <p>Corporate edition omitting media features but adding domain join and Complete PC Backup.</p>
+                                <div class="details"><div class="details-row"><span class="label">Architecture:</span> <span class="value">x64 / x86</span></div><div class="details-row"><span class="label">Release Year:</span> <span class="value">2006</span></div></div>
+                            </div>
+                            <div class="btn-group"><a href="#" class="btn disabled" onclick="return false;">Coming Soon</a></div>
+                        </div>
+                        <div class="card glass vista-card" data-tags="windows vista ultimate aio 64-bit 2006 legacy popular">
+                            <div>
+                                <div class="card-header">
+                                    <div>
+                                        <div style="display:flex; align-items:center; gap:10px;"><h2>Windows Vista Ultimate</h2><span class="os-icon">🟢</span></div>
+                                        <div class="badges-container"><span class="badge legacy">Legacy</span><span class="badge popular">Popular</span></div>
+                                    </div>
+                                </div>
+                                <p>The dawn of the Aero Glass theme engine. Clean All-in-One (AIO) containing all core editions.</p>
+                                <div class="details">
+                                    <div class="details-row"><span class="label">Architecture:</span> <span class="value">x64 (64-bit)</span></div>
+                                    <div class="details-row"><span class="label">Release Year:</span> <span class="value">2006</span></div>
+                                </div>
+                            </div>
+                            <div class="btn-group">
+                                <a href="https://archive.org/download/vista_x64/vista_x64.iso" class="btn">Direct Download ISO</a>
+                                <a href="https://archive.org/details/vista_x64" target="_blank" class="btn btn-secondary">View Source Page</a>
+                            </div>
+                        </div>
+                        <div class="card glass vista-card" data-tags="windows vista enterprise 64-bit 32-bit 2006 legacy server">
+                            <div>
+                                <div class="card-header"><div><div style="display:flex; align-items:center; gap:10px;"><h2>Vista Enterprise</h2><span class="os-icon">🟢</span></div><div class="badges-container"><span class="badge legacy">Legacy</span><span class="badge server">Enterprise</span></div></div></div>
+                                <p>Volume licensing exclusive edition with BitLocker and multilingual user interface packages.</p>
+                                <div class="details"><div class="details-row"><span class="label">Architecture:</span> <span class="value">x64 / x86</span></div><div class="details-row"><span class="label">Release Year:</span> <span class="value">2006</span></div></div>
+                            </div>
+                            <div class="btn-group"><a href="#" class="btn disabled" onclick="return false;">Coming Soon</a></div>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Windows 7 -->
-                <div class="card glass win7-card" data-tags="windows 7 ultimate x64 sp1 64-bit legacy aero standard">
-                    <div>
-                        <div class="card-header">
-                            <h2>Windows 7 Ultimate</h2>
-                            <span class="os-icon">💿</span>
+                <!-- Windows XP Generation -->
+                <div class="generation-group">
+                    <div class="section-header">Windows XP Collection</div>
+                    <div class="grid">
+                        <div class="card glass xp-card" data-tags="windows xp home 32-bit 2001 retro">
+                            <div>
+                                <div class="card-header"><div><div style="display:flex; align-items:center; gap:10px;"><h2>Windows XP Home</h2><span class="os-icon">🪵</span></div><div class="badges-container"><span class="badge retro">Retro</span></div></div></div>
+                                <p>Standard consumer OS built on the NT kernel bringing stability to the home market.</p>
+                                <div class="details"><div class="details-row"><span class="label">Architecture:</span> <span class="value">x86 (32-bit)</span></div><div class="details-row"><span class="label">Release Year:</span> <span class="value">2001</span></div></div>
+                            </div>
+                            <div class="btn-group"><a href="#" class="btn disabled" onclick="return false;">Coming Soon</a></div>
                         </div>
-                        <p>Legacy operating system preservation. Intended primarily for retro gaming setups, system testing environments, or low-overhead virtual machines.</p>
-                        <div class="details">
-                            <div class="details-row"><span class="label">Architecture:</span> <span class="value">x64 (Service Pack 1)</span></div>
-                            <div class="details-row"><span class="label">Format:</span> <span class="value">Standard .ISO</span></div>
-                            <div class="details-row"><span class="label">Source:</span> <span class="value">Internet Archive</span></div>
+                        <div class="card glass xp-card" data-tags="windows xp pro sp3 32-bit 2001 retro popular">
+                            <div>
+                                <div class="card-header">
+                                    <div>
+                                        <div style="display:flex; align-items:center; gap:10px;"><h2>Windows XP Pro (SP3)</h2><span class="os-icon">🪵</span></div>
+                                        <div class="badges-container"><span class="badge retro">Retro</span><span class="badge popular">Popular</span></div>
+                                    </div>
+                                </div>
+                                <p>The iconic computing baseline. Ultra-light configuration primarily deployed for retro system setups.</p>
+                                <div class="details">
+                                    <div class="details-row"><span class="label">Architecture:</span> <span class="value">x86 (32-bit Classic)</span></div>
+                                    <div class="details-row"><span class="label">Release Year:</span> <span class="value">2001</span></div>
+                                </div>
+                            </div>
+                            <div class="btn-group">
+                                <a href="https://archive.org/download/en_windows_xp_professional_with_service_pack_3_x86_cd_x14-80428_202010/en_windows_xp_professional_with_service_pack_3_x86_cd_x14-80428.iso" class="btn">Direct Download ISO</a>
+                                <a href="https://archive.org/details/en_windows_xp_professional_with_service_pack_3_x86_cd_x14-80428_202010" target="_blank" class="btn btn-secondary">View Source Page</a>
+                            </div>
                         </div>
-                    </div>
-                    <div class="btn-group">
-                        <a href="https://archive.org/download/windows-7-ultimate-x-64-sp-1-fully-loaded/Windows%207%20Ultimate%20x64%20-%20SP1%20%28Fully%20Loaded%29.iso" class="btn">Direct Download ISO</a>
-                        <a href="https://archive.org/details/windows-7-ultimate-x-64-sp-1-fully-loaded" target="_blank" class="btn btn-secondary">View Source Page</a>
+                        <div class="card glass xp-card" data-tags="windows xp professional x64 64-bit 2005 retro">
+                            <div>
+                                <div class="card-header"><div><div style="display:flex; align-items:center; gap:10px;"><h2>Windows XP Pro x64</h2><span class="os-icon">🪵</span></div><div class="badges-container"><span class="badge retro">Retro</span></div></div></div>
+                                <p>Specialized port of Windows Server 2003 for enthusiasts requiring massive RAM addressing.</p>
+                                <div class="details"><div class="details-row"><span class="label">Architecture:</span> <span class="value">x64 (64-bit)</span></div><div class="details-row"><span class="label">Release Year:</span> <span class="value">2005</span></div></div>
+                            </div>
+                            <div class="btn-group"><a href="#" class="btn disabled" onclick="return false;">Coming Soon</a></div>
+                        </div>
+                        <div class="card glass xp-card" data-tags="windows xp media center mce 32-bit 2002 retro">
+                            <div>
+                                <div class="card-header"><div><div style="display:flex; align-items:center; gap:10px;"><h2>Windows XP MCE</h2><span class="os-icon">🪵</span></div><div class="badges-container"><span class="badge retro">Retro</span></div></div></div>
+                                <p>Media Center Edition designed for Home Theater PCs and living room multimedia playback.</p>
+                                <div class="details"><div class="details-row"><span class="label">Architecture:</span> <span class="value">x86 (32-bit)</span></div><div class="details-row"><span class="label">Release Year:</span> <span class="value">2002</span></div></div>
+                            </div>
+                            <div class="btn-group"><a href="#" class="btn disabled" onclick="return false;">Coming Soon</a></div>
+                        </div>
+                        <div class="card glass xp-card" data-tags="windows xp tablet pc 32-bit 2002 retro">
+                            <div>
+                                <div class="card-header"><div><div style="display:flex; align-items:center; gap:10px;"><h2>XP Tablet PC Edition</h2><span class="os-icon">🪵</span></div><div class="badges-container"><span class="badge retro">Retro</span></div></div></div>
+                                <p>Optimized for early pen-computing hardware with integrated handwriting recognition tools.</p>
+                                <div class="details"><div class="details-row"><span class="label">Architecture:</span> <span class="value">x86 (32-bit)</span></div><div class="details-row"><span class="label">Release Year:</span> <span class="value">2002</span></div></div>
+                            </div>
+                            <div class="btn-group"><a href="#" class="btn disabled" onclick="return false;">Coming Soon</a></div>
+                        </div>
+                        <div class="card glass xp-card" data-tags="windows xp embedded 32-bit 2001 retro ltsc">
+                            <div>
+                                <div class="card-header"><div><div style="display:flex; align-items:center; gap:10px;"><h2>Windows XP Embedded</h2><span class="os-icon">🪵</span></div><div class="badges-container"><span class="badge retro">Retro</span><span class="badge ltsc">LTSC</span></div></div></div>
+                                <p>Componentized version utilized in ATMs, arcade cabinets, and specialized kiosk machines.</p>
+                                <div class="details"><div class="details-row"><span class="label">Architecture:</span> <span class="value">x86 (32-bit)</span></div><div class="details-row"><span class="label">Release Year:</span> <span class="value">2001</span></div></div>
+                            </div>
+                            <div class="btn-group"><a href="#" class="btn disabled" onclick="return false;">Coming Soon</a></div>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Windows Vista -->
-                <div class="card glass vista-card" data-tags="windows vista aio x64 all in one 64-bit aero standard">
-                    <div>
-                        <div class="card-header">
-                            <h2>Windows Vista (AIO)</h2>
-                            <span class="os-icon">🟢</span>
+                <!-- Windows 2000 Generation -->
+                <div class="generation-group">
+                    <div class="section-header">Windows 2000 Collection</div>
+                    <div class="grid">
+                        <div class="card glass classic-card" data-tags="windows 2000 professional 32-bit 2000 retro">
+                            <div>
+                                <div class="card-header"><div><div style="display:flex; align-items:center; gap:10px;"><h2>Win 2000 Professional</h2><span class="os-icon">🪟</span></div><div class="badges-container"><span class="badge retro">Retro</span></div></div></div>
+                                <p>Highly reliable NT-based desktop OS preceding XP, widely deployed in early 2000s offices.</p>
+                                <div class="details"><div class="details-row"><span class="label">Architecture:</span> <span class="value">x86 (32-bit)</span></div><div class="details-row"><span class="label">Release Year:</span> <span class="value">2000</span></div></div>
+                            </div>
+                            <div class="btn-group"><a href="#" class="btn disabled" onclick="return false;">Coming Soon</a></div>
                         </div>
-                        <p>The dawn of the Aero Glass theme engine. Clean retail ISO containing all versions (Home, Business, Ultimate) ready for mid-2000s desktop restoration.</p>
-                        <div class="details">
-                            <div class="details-row"><span class="label">Architecture:</span> <span class="value">x64 (64-bit Build)</span></div>
-                            <div class="details-row"><span class="label">Format:</span> <span class="value">All-in-One .ISO</span></div>
-                            <div class="details-row"><span class="label">Source:</span> <span class="value">Internet Archive</span></div>
+                        <div class="card glass classic-card" data-tags="windows 2000 server 32-bit 2000 retro server">
+                            <div>
+                                <div class="card-header"><div><div style="display:flex; align-items:center; gap:10px;"><h2>Windows 2000 Server</h2><span class="os-icon">🪟</span></div><div class="badges-container"><span class="badge retro">Retro</span><span class="badge server">Server</span></div></div></div>
+                                <p>Introduced Active Directory and massive networking improvements over NT 4.0 Server.</p>
+                                <div class="details"><div class="details-row"><span class="label">Architecture:</span> <span class="value">x86 (32-bit)</span></div><div class="details-row"><span class="label">Release Year:</span> <span class="value">2000</span></div></div>
+                            </div>
+                            <div class="btn-group"><a href="#" class="btn disabled" onclick="return false;">Coming Soon</a></div>
                         </div>
-                    </div>
-                    <div class="btn-group">
-                        <a href="https://archive.org/download/vista_x64/vista_x64.iso" class="btn">Direct Download ISO</a>
-                        <a href="https://archive.org/details/vista_x64" target="_blank" class="btn btn-secondary">View Source Page</a>
+                        <div class="card glass classic-card" data-tags="windows 2000 advanced server 32-bit 2000 retro server">
+                            <div>
+                                <div class="card-header"><div><div style="display:flex; align-items:center; gap:10px;"><h2>Win 2000 Adv Server</h2><span class="os-icon">🪟</span></div><div class="badges-container"><span class="badge retro">Retro</span><span class="badge server">Server</span></div></div></div>
+                                <p>Enhanced version capable of symmetric multiprocessing (SMP) and clustered environments.</p>
+                                <div class="details"><div class="details-row"><span class="label">Architecture:</span> <span class="value">x86 (32-bit)</span></div><div class="details-row"><span class="label">Release Year:</span> <span class="value">2000</span></div></div>
+                            </div>
+                            <div class="btn-group"><a href="#" class="btn disabled" onclick="return false;">Coming Soon</a></div>
+                        </div>
+                        <div class="card glass classic-card" data-tags="windows 2000 datacenter server 32-bit 2000 retro server">
+                            <div>
+                                <div class="card-header"><div><div style="display:flex; align-items:center; gap:10px;"><h2>Win 2000 Datacenter</h2><span class="os-icon">🪟</span></div><div class="badges-container"><span class="badge retro">Retro</span><span class="badge server">Server</span></div></div></div>
+                                <p>High-end enterprise tier supporting extensive RAM and extreme SMP processing loads.</p>
+                                <div class="details"><div class="details-row"><span class="label">Architecture:</span> <span class="value">x86 (32-bit)</span></div><div class="details-row"><span class="label">Release Year:</span> <span class="value">2000</span></div></div>
+                            </div>
+                            <div class="btn-group"><a href="#" class="btn disabled" onclick="return false;">Coming Soon</a></div>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Windows XP -->
-                <div class="card glass xp-card" data-tags="windows xp pro sp3 x86 32-bit retro classic standard">
-                    <div>
-                        <div class="card-header">
-                            <h2>Windows XP Pro (SP3)</h2>
-                            <span class="os-icon">🪵</span>
+                <!-- Retro MS-DOS / 9x Era Generation -->
+                <div class="generation-group">
+                    <div class="section-header">Classic 9x & NT Collection</div>
+                    <div class="grid">
+                        <div class="card glass classic-card" data-tags="windows me millennium 32-bit 2000 retro">
+                            <div>
+                                <div class="card-header"><div><div style="display:flex; align-items:center; gap:10px;"><h2>Windows ME</h2><span class="os-icon">💾</span></div><div class="badges-container"><span class="badge retro">Retro</span></div></div></div>
+                                <p>Millennium Edition. The final operating system in the Windows 9x lineage aimed at home PC users.</p>
+                                <div class="details"><div class="details-row"><span class="label">Architecture:</span> <span class="value">x86 (32-bit)</span></div><div class="details-row"><span class="label">Release Year:</span> <span class="value">2000</span></div></div>
+                            </div>
+                            <div class="btn-group"><a href="#" class="btn disabled" onclick="return false;">Coming Soon</a></div>
                         </div>
-                        <p>The iconic computing baseline. Ultra-light configuration primarily deployed to drive air-gapped laboratory hardware setups, emulation matrices, and retro system configurations.</p>
-                        <div class="details">
-                            <div class="details-row"><span class="label">Architecture:</span> <span class="value">x86 (32-bit Classic)</span></div>
-                            <div class="details-row"><span class="label">Format:</span> <span class="value">Retail Standard .ISO</span></div>
-                            <div class="details-row"><span class="label">Source:</span> <span class="value">Internet Archive</span></div>
+                        <div class="card glass classic-card" data-tags="windows 98 se second edition 32-bit 1999 retro popular">
+                            <div>
+                                <div class="card-header"><div><div style="display:flex; align-items:center; gap:10px;"><h2>Windows 98 SE</h2><span class="os-icon">💾</span></div><div class="badges-container"><span class="badge retro">Retro</span><span class="badge popular">Popular</span></div></div></div>
+                                <p>Second Edition. Highly stable and beloved classic 9x OS with robust USB and network support.</p>
+                                <div class="details"><div class="details-row"><span class="label">Architecture:</span> <span class="value">x86 (32-bit)</span></div><div class="details-row"><span class="label">Release Year:</span> <span class="value">1999</span></div></div>
+                            </div>
+                            <div class="btn-group"><a href="#" class="btn disabled" onclick="return false;">Coming Soon</a></div>
+                        </div>
+                        <div class="card glass classic-card" data-tags="windows 98 32-bit 1998 retro">
+                            <div>
+                                <div class="card-header"><div><div style="display:flex; align-items:center; gap:10px;"><h2>Windows 98</h2><span class="os-icon">💾</span></div><div class="badges-container"><span class="badge retro">Retro</span></div></div></div>
+                                <p>Original release cementing Internet Explorer integration and WDM driver models.</p>
+                                <div class="details"><div class="details-row"><span class="label">Architecture:</span> <span class="value">x86 (32-bit)</span></div><div class="details-row"><span class="label">Release Year:</span> <span class="value">1998</span></div></div>
+                            </div>
+                            <div class="btn-group"><a href="#" class="btn disabled" onclick="return false;">Coming Soon</a></div>
+                        </div>
+                        <div class="card glass classic-card" data-tags="windows 95 32-bit 1995 retro">
+                            <div>
+                                <div class="card-header"><div><div style="display:flex; align-items:center; gap:10px;"><h2>Windows 95</h2><span class="os-icon">💾</span></div><div class="badges-container"><span class="badge retro">Retro</span></div></div></div>
+                                <p>The groundbreaking GUI that introduced the Start Menu, Taskbar, and preemptive multitasking.</p>
+                                <div class="details"><div class="details-row"><span class="label">Architecture:</span> <span class="value">x86 (32-bit)</span></div><div class="details-row"><span class="label">Release Year:</span> <span class="value">1995</span></div></div>
+                            </div>
+                            <div class="btn-group"><a href="#" class="btn disabled" onclick="return false;">Coming Soon</a></div>
+                        </div>
+                        <div class="card glass classic-card" data-tags="windows nt 4.0 32-bit 1996 retro server">
+                            <div>
+                                <div class="card-header"><div><div style="display:flex; align-items:center; gap:10px;"><h2>Windows NT 4.0</h2><span class="os-icon">💾</span></div><div class="badges-container"><span class="badge retro">Retro</span><span class="badge server">Server</span></div></div></div>
+                                <p>Brought the Win95 interface to the robust NT workstation and server architectures.</p>
+                                <div class="details"><div class="details-row"><span class="label">Architecture:</span> <span class="value">x86 / MIPS / Alpha</span></div><div class="details-row"><span class="label">Release Year:</span> <span class="value">1996</span></div></div>
+                            </div>
+                            <div class="btn-group"><a href="#" class="btn disabled" onclick="return false;">Coming Soon</a></div>
+                        </div>
+                        <div class="card glass classic-card" data-tags="windows nt 3.51 32-bit 1995 retro server">
+                            <div>
+                                <div class="card-header"><div><div style="display:flex; align-items:center; gap:10px;"><h2>Windows NT 3.51</h2><span class="os-icon">💾</span></div><div class="badges-container"><span class="badge retro">Retro</span><span class="badge server">Server</span></div></div></div>
+                                <p>Highly stable release noted for its performance capabilities and PowerPC support.</p>
+                                <div class="details"><div class="details-row"><span class="label">Architecture:</span> <span class="value">x86 (32-bit)</span></div><div class="details-row"><span class="label">Release Year:</span> <span class="value">1995</span></div></div>
+                            </div>
+                            <div class="btn-group"><a href="#" class="btn disabled" onclick="return false;">Coming Soon</a></div>
                         </div>
                     </div>
-                    <div class="btn-group">
-                        <a href="https://archive.org/download/en_windows_xp_professional_with_service_pack_3_x86_cd_x14-80428_202010/en_windows_xp_professional_with_service_pack_3_x86_cd_x14-80428.iso" class="btn">Direct Download ISO</a>
-                        <a href="https://archive.org/details/en_windows_xp_professional_with_service_pack_3_x86_cd_x14-80428_202010" target="_blank" class="btn btn-secondary">View Source Page</a>
+                </div>
+
+                <!-- Pre-95 GUI Generation -->
+                <div class="generation-group">
+                    <div class="section-header">Vintage Environment Collection</div>
+                    <div class="grid">
+                        <div class="card glass classic-card" data-tags="windows 3.11 for workgroups 16-bit 1993 retro">
+                            <div>
+                                <div class="card-header"><div><div style="display:flex; align-items:center; gap:10px;"><h2>Windows 3.11</h2><span class="os-icon">🖨️</span></div><div class="badges-container"><span class="badge retro">Retro</span></div></div></div>
+                                <p>Windows for Workgroups bringing robust peer-to-peer networking capabilities to MS-DOS.</p>
+                                <div class="details"><div class="details-row"><span class="label">Architecture:</span> <span class="value">16-bit</span></div><div class="details-row"><span class="label">Release Year:</span> <span class="value">1993</span></div></div>
+                            </div>
+                            <div class="btn-group"><a href="#" class="btn disabled" onclick="return false;">Coming Soon</a></div>
+                        </div>
+                        <div class="card glass classic-card" data-tags="windows 3.1 16-bit 1992 retro">
+                            <div>
+                                <div class="card-header"><div><div style="display:flex; align-items:center; gap:10px;"><h2>Windows 3.1</h2><span class="os-icon">🖨️</span></div><div class="badges-container"><span class="badge retro">Retro</span></div></div></div>
+                                <p>The wildly successful operating environment bringing TrueType fonts and sweeping MS-DOS adoption.</p>
+                                <div class="details"><div class="details-row"><span class="label">Architecture:</span> <span class="value">16-bit</span></div><div class="details-row"><span class="label">Release Year:</span> <span class="value">1992</span></div></div>
+                            </div>
+                            <div class="btn-group"><a href="#" class="btn disabled" onclick="return false;">Coming Soon</a></div>
+                        </div>
+                        <div class="card glass classic-card" data-tags="windows 2.03 16-bit 1987 retro">
+                            <div>
+                                <div class="card-header"><div><div style="display:flex; align-items:center; gap:10px;"><h2>Windows 2.03</h2><span class="os-icon">🖨️</span></div><div class="badges-container"><span class="badge retro">Retro</span></div></div></div>
+                                <p>Introduced overlapping windows and VGA graphics support to the early PC ecosystem.</p>
+                                <div class="details"><div class="details-row"><span class="label">Architecture:</span> <span class="value">16-bit</span></div><div class="details-row"><span class="label">Release Year:</span> <span class="value">1987</span></div></div>
+                            </div>
+                            <div class="btn-group"><a href="#" class="btn disabled" onclick="return false;">Coming Soon</a></div>
+                        </div>
+                        <div class="card glass classic-card" data-tags="windows 1.04 16-bit 1987 retro">
+                            <div>
+                                <div class="card-header"><div><div style="display:flex; align-items:center; gap:10px;"><h2>Windows 1.04</h2><span class="os-icon">🖨️</span></div><div class="badges-container"><span class="badge retro">Retro</span></div></div></div>
+                                <p>The final release of the very first Windows operating environment graphical shell.</p>
+                                <div class="details"><div class="details-row"><span class="label">Architecture:</span> <span class="value">16-bit</span></div><div class="details-row"><span class="label">Release Year:</span> <span class="value">1987</span></div></div>
+                            </div>
+                            <div class="btn-group"><a href="#" class="btn disabled" onclick="return false;">Coming Soon</a></div>
+                        </div>
                     </div>
                 </div>
 
@@ -950,7 +1548,7 @@
                             <p>Create bootable USB drives for Windows installation. Highly recommended for burning standard ISOs onto physical flash media securely.</p>
                         </div>
                         <div class="btn-group" style="margin-top: auto;">
-                            <a href="https://github.com/pbatard/rufus/releases/download/v4.14/rufus-4.14.exe" class="btn">Download Rufus</a>
+                            <a href="https://github.com/pbatard/rufus/releases/download/v4.14/rufus-4.14.exe" class="btn">Direct Download Rufus</a>
                         </div>
                     </div>
 
@@ -974,8 +1572,8 @@
             <div class="card glass community-section">
                 <div class="community-content">
                     <h2>Join WMI</h2>
-                    <p>Windows Mirror ISO Community is a growing community dedicated to preserving Windows operating systems, helping users install Windows safely, sharing knowledge, and maintaining reliable ISO mirrors.</p>
-                    <a href="https://discord.gg/XdJDtqwXGM" target="_blank" class="btn btn-discord">
+                    <p>Windows Mirror ISO Community is dedicated to preserving Windows operating systems, helping users install Windows safely, maintaining archive mirrors and building a friendly community.</p>
+                    <a href="https://discord.gg/rXQqdCBqya" target="_blank" class="btn btn-discord">
                         <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994.021-.041.001-.09-.041-.106a13.094 13.094 0 0 1-1.873-.894.077.077 0 0 1-.008-.128c.126-.093.252-.19.372-.287a.075.075 0 0 1 .077-.011c3.92 1.793 8.18 1.793 12.061 0a.073.073 0 0 1 .078.009c.12.099.246.195.373.289a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.894.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.156-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.156 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.156-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.156 2.418z"/></svg>
                         Join WMI Discord
                     </a>
@@ -996,8 +1594,7 @@
                 <div class="card glass win11-card">
                     <div>
                         <div class="card-header">
-                            <h2>Tiny11 (64-bit)</h2>
-                            <span class="os-icon">🍃</span>
+                            <div><div style="display:flex; align-items:center; gap:10px;"><h2>Tiny11 (64-bit)</h2><span class="os-icon">🍃</span></div></div>
                         </div>
                         <p>Streamlined, lightweight implementation of Windows 11 designed to run smoothly on legacy hardware configurations without system bloat.</p>
                         <div class="details">
@@ -1015,8 +1612,7 @@
                 <div class="card glass win10-card">
                     <div>
                         <div class="card-header">
-                            <h2>Tiny10 (32-bit)</h2>
-                            <span class="os-icon">🌱</span>
+                            <div><div style="display:flex; align-items:center; gap:10px;"><h2>Tiny10 (32-bit)</h2><span class="os-icon">🌱</span></div></div>
                         </div>
                         <p>Optimized Windows 10 configuration designed from the ground up for low resource machines and light-footprint virtualization tasks.</p>
                         <div class="details">
@@ -1044,7 +1640,7 @@
                 <div class="details-row"><span class="label">Archive Target:</span> <span class="value">Public Domain Cataloging</span></div>
             </div>
             <div class="btn-group" style="margin-top: 2rem;">
-                <a href="https://discord.gg/XdJDtqwXGM" target="_blank" class="btn btn-discord" style="align-self: flex-start;">
+                <a href="https://discord.gg/rXQqdCBqya" target="_blank" class="btn btn-discord" style="align-self: flex-start;">
                     Get in Touch via Discord
                 </a>
             </div>
@@ -1062,12 +1658,12 @@
     <!-- FOOTER -->
     <footer>
         <div style="max-width: 1200px; margin: 0 auto; padding: 0 1.5rem;">
-            <p>❤️ Made by <strong>wmi (windows mirror iso)</strong></p>
+            <p>❤️ Made by <strong>Wyper Soft Pillow</strong></p>
             <p style="margin-top: 1rem; font-weight: 700; color: var(--text-main);">Powered by</p>
             <ul>
                 <li>• <a href="https://pages.github.com/" target="_blank">GitHub Pages</a></li>
                 <li>• <a href="https://archive.org/" target="_blank">Internet Archive</a></li>
-                <li>• <a href="https://discord.gg/XdJDtqwXGM" target="_blank">WMI (Windows Mirror ISO Community)</a></li>
+                <li>• <a href="https://discord.gg/rXQqdCBqya" target="_blank">WMI (Windows Mirror ISO Community)</a></li>
             </ul>
             <p style="font-size: 0.85rem; margin-top: 1rem; opacity: 0.7;">Thank you to everyone helping preserve Windows operating systems for future generations.</p>
             <p style="font-size: 0.8rem; margin-top: 1.5rem; opacity: 0.5;">© 2026 Windows Mirror</p>
@@ -1114,22 +1710,62 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // Live Search Filter Routine
+        // Live Search & Filter Routine
         const searchInput = document.getElementById('search');
-        const cards = document.querySelectorAll('#iso-grid .card');
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const cards = document.querySelectorAll('#iso-container .card');
+        const generationGroups = document.querySelectorAll('.generation-group');
 
-        if (searchInput) {
-            searchInput.addEventListener('input', (e) => {
-                const query = e.target.value.toLowerCase().trim();
-                cards.forEach(card => {
-                    const tags = card.getAttribute('data-tags').toLowerCase();
-                    if (tags.includes(query)) {
+        let currentFilter = 'all';
+        let currentQuery = '';
+
+        function applyFilters() {
+            let activeCardsCount = 0;
+
+            generationGroups.forEach(group => {
+                let groupHasVisibleCards = false;
+                const groupCards = group.querySelectorAll('.card');
+
+                groupCards.forEach(card => {
+                    const tags = card.getAttribute('data-tags') ? card.getAttribute('data-tags').toLowerCase() : '';
+                    
+                    const matchesSearch = tags.includes(currentQuery);
+                    const matchesFilter = currentFilter === 'all' || tags.includes(currentFilter);
+
+                    if (matchesSearch && matchesFilter) {
                         card.style.display = 'flex';
-                        card.style.animation = 'none'; // reset animation to fire again
+                        card.style.animation = 'none'; 
                         setTimeout(() => card.style.animation = '', 10);
+                        groupHasVisibleCards = true;
+                        activeCardsCount++;
                     } else {
                         card.style.display = 'none';
                     }
+                });
+
+                // Hide empty generation groups to maintain clean layout
+                if (groupHasVisibleCards) {
+                    group.style.display = 'block';
+                } else {
+                    group.style.display = 'none';
+                }
+            });
+        }
+
+        if (searchInput) {
+            searchInput.addEventListener('input', (e) => {
+                currentQuery = e.target.value.toLowerCase().trim();
+                applyFilters();
+            });
+        }
+
+        if (filterBtns) {
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    filterBtns.forEach(b => b.classList.remove('active'));
+                    e.target.classList.add('active');
+                    currentFilter = e.target.getAttribute('data-filter');
+                    applyFilters();
                 });
             });
         }
